@@ -153,8 +153,26 @@ dico_carte={"coeur":coeur, "trefle":trefle, "carreau":carreau, "pique":pique}
 
 '''class GraphicInterfaceBlackJack:
     def __init__(self):
-        BJ_window=Tk()
-        BJ_window.geometry("1920x1080")  
+        root = Tk()
+
+        root.title("BlackJack")
+        Username="Bismaon"
+        root.attributes("-fullscreen", True)
+        rows = 0
+        while rows < 50:
+            root.rowconfigure(rows, weight=1)
+            root.columnconfigure(rows,weight=1)
+            rows += 1
+        L_Dealer = Label(root, text="Dealer", font="Arial 17 bold").grid(row=2, column =24)
+        L_Joueur= Label(root, text=Username, font="Arial 17 bold").grid(row=24, column=24)
+        L_Total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold").grid(row=2, column=26)
+        L_Total_J=Label(root, text="Total du Joueur: ",font="Arial 12 bold").grid(row=24, column=26)
+        L_Mis_en_jeu=Label(root, text="Argent en jeu:", font="Arial 12 bold").grid(row=24, column=2)
+        L_Argent_J=Label(root, text="Argent gagné/perdu par le Joueur: ", font="Arial 12 bold").grid(row=25, column=2)
+        L_Argent_D=Label(root, text="Argent gagné/perdu par le dealer: ",font="Arial 12 bold").grid(row=2, column=2)
+        Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED).grid(row=48, column=24)
+        Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy).grid(row=48, column=48)
+        root.mainloop()
         
     def add_image(self, card):'''
         
