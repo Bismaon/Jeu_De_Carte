@@ -1,5 +1,5 @@
 from random import shuffle
-from Jeu_De_Carte.carte import *
+from carte import *
 from tkinter import *
 from PIL import Image, ImageTk
 class BlackJack:
@@ -150,3 +150,12 @@ pique={1:"Jeu_De_Carte\\Carte\\ace_of_spades.png",
        12:"Jeu_De_Carte\\Carte\\queen_of_spades2.png", 
        13:"Jeu_De_Carte\\Carte\\king_of_spades2.png"}
 dico_carte={"coeur":coeur, "trefle":trefle, "carreau":carreau, "pique":pique}
+
+'''class GraphicInterfaceBlackJack:
+    def __init__(self):
+        BJ_window=Tk()
+        BJ_window.geometry("1920x1080")  
+        
+    def add_image(self, card):'''
+        
+       

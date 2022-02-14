@@ -1,5 +1,4 @@
-
-from Jeu_De_Carte.carte import *
+from carte import *
 from BlackJack import *
 from Bataille import *
 """

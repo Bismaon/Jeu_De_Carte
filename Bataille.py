@@ -1,5 +1,5 @@
 from random import shuffle
-from Jeu_De_Carte.carte import *
+from carte import *
 class Bataille:
     def __init__(self, paquet1:list, paquet2:list):
         self.jeu1=paquet1
