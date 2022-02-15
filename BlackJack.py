@@ -97,59 +97,7 @@ def valeur_de_carte_D(valeur, total):
     else:
         return valeur
 
-coeur={1:"Jeu_De_Carte\\Carte\\ace_of_hearts.png", 
-       2:"Jeu_De_Carte\\Carte\\2_of_hearts.png", 
-       3:"Jeu_De_Carte\\Carte\\3_of_hearts.png", 
-       4:"Jeu_De_Carte\\Carte\\4_of_hearts.png", 
-       5:"Jeu_De_Carte\\Carte\\5_of_hearts.png", 
-       6:"Jeu_De_Carte\\Carte\\6_of_hearts.png", 
-       7:"Jeu_De_Carte\\Carte\\7_of_hearts.png", 
-       8:"Jeu_De_Carte\\Carte\\8_of_hearts.png", 
-       9:"Jeu_De_Carte\\Carte\\9_of_hearts.png", 
-       10:"Jeu_De_Carte\\Carte\\10_of_hearts.png", 
-       11:"Jeu_De_Carte\\Carte\\jack_of_hearts2.png", 
-       12:"Jeu_De_Carte\\Carte\\queen_of_hearts2.png", 
-       13:"Jeu_De_Carte\\Carte\\king_of_hearts2.png"}
-trefle={1:"Jeu_De_Carte\\Carte\\ace_of_clubs.png", 
-       2:"Jeu_De_Carte\\Carte\\2_of_clubs.png", 
-       3:"Jeu_De_Carte\\Carte\\3_of_clubs.png", 
-       4:"Jeu_De_Carte\\Carte\\4_of_clubs.png", 
-       5:"Jeu_De_Carte\\Carte\\5_of_clubs.png", 
-       6:"Jeu_De_Carte\\Carte\\6_of_clubs.png", 
-       7:"Jeu_De_Carte\\Carte\\7_of_clubs.png", 
-       8:"Jeu_De_Carte\\Carte\\8_of_clubs.png", 
-       9:"Jeu_De_Carte\\Carte\\9_of_clubs.png", 
-       10:"Jeu_De_Carte\\Carte\\10_of_clubs.png", 
-       11:"Jeu_De_Carte\\Carte\\jack_of_clubs2.png", 
-       12:"Jeu_De_Carte\\Carte\\queen_of_clubs2.png", 
-       13:"Jeu_De_Carte\\Carte\\king_of_clubs2.png"}
-carreau={1:"Jeu_De_Carte\\Carte\\ace_of_diamonds.png", 
-       2:"Jeu_De_Carte\\Carte\\2_of_diamonds.png", 
-       3:"Jeu_De_Carte\\Carte\\3_of_diamonds.png", 
-       4:"Jeu_De_Carte\\Carte\\4_of_diamonds.png", 
-       5:"Jeu_De_Carte\\Carte\\5_of_diamonds.png", 
-       6:"Jeu_De_Carte\\Carte\\6_of_diamonds.png", 
-       7:"Jeu_De_Carte\\Carte\\7_of_diamonds.png", 
-       8:"Jeu_De_Carte\\Carte\\8_of_diamonds.png", 
-       9:"Jeu_De_Carte\\Carte\\9_of_diamonds.png", 
-       10:"Jeu_De_Carte\\Carte\\10_of_diamonds.png", 
-       11:"Jeu_De_Carte\\Carte\\jack_of_diamonds2.png", 
-       12:"Jeu_De_Carte\\Carte\\queen_of_diamonds2.png", 
-       13:"Jeu_De_Carte\\Carte\\king_of_diamonds2.png"}
-pique={1:"Jeu_De_Carte\\Carte\\ace_of_spades.png", 
-       2:"Jeu_De_Carte\\Carte\\2_of_spades.png", 
-       3:"Jeu_De_Carte\\Carte\\3_of_spades.png", 
-       4:"Jeu_De_Carte\\Carte\\4_of_spades.png", 
-       5:"Jeu_De_Carte\\Carte\\5_of_spades.png", 
-       6:"Jeu_De_Carte\\Carte\\6_of_spades.png", 
-       7:"Jeu_De_Carte\\Carte\\7_of_spades.png", 
-       8:"Jeu_De_Carte\\Carte\\8_of_spades.png", 
-       9:"Jeu_De_Carte\\Carte\\9_of_spades.png", 
-       10:"Jeu_De_Carte\\Carte\\10_of_spades.png", 
-       11:"Jeu_De_Carte\\Carte\\jack_of_spades2.png", 
-       12:"Jeu_De_Carte\\Carte\\queen_of_spades2.png", 
-       13:"Jeu_De_Carte\\Carte\\king_of_spades2.png"}
-dico_carte={"coeur":coeur, "trefle":trefle, "carreau":carreau, "pique":pique}
+
 
 '''class GraphicInterfaceBlackJack:
     def __init__(self):
