@@ -68,7 +68,9 @@ def add_image_J():
     img_lab.place(x=544+(50*n_card),y=450)
     n_card+=1
     return img_lab
-    
+
+def add_image_D():
+    pass
 def commande_dealer(): 
     pass
 root = Tk()
