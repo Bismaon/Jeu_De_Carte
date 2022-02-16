@@ -61,10 +61,15 @@ class BlackJack:
             nb.place(x=100, y=100)
             nb.focus_set()
             valeur=IntVar()
+            answer_nb=Label(root, text='')
+            answer_nb.place(x=0,y=0)
             def get_value():
-                valeur.set(nb.get())
-            L_nb=Button(root, text="Valeur de l'As (1, 10, 11): ", command=get_value, font="Arial 12 bold", relief=RAISED)
-            L_nb.place(x=50, y=50)
+                if not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11):
+                    answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
+                else:
+                    valeur.set(nb.get())
+            B_nb=Button(root, text="Valeur de l'As (1, 10, 11): ", command=get_value, font="Arial 12 bold", relief=RAISED)
+            B_nb.place(x=50, y=50)
             root.wait_variable(valeur)
             return valeur.get()
         else:
