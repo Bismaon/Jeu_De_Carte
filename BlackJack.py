@@ -17,14 +17,56 @@ class BlackJack:
         self.total_J=0
         self.total_D=0
         self.bet=0
-        
+    
+    
+    def window(self):
+        root = Tk()
+        root.title("BlackJack")
+        root.attributes("-fullscreen", True)
+        rows = 0
+        while rows < 50:
+            root.rowconfigure(rows, weight=1)
+            root.columnconfigure(rows,weight=1)
+            rows += 1
+        L_Dealer = Label(root, text="Dealer", font="Arial 17 bold")
+        L_Dealer.grid(row=2, column =24)
+        L_Joueur= Label(root, text=self.username, font="Arial 17 bold")
+        L_Joueur.grid(row=24, column=24)
+        L_total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold")
+        L_total_D.grid(row=2, column=26)
+        L_total_J=Label(root, text="Total du Joueur: ",font="Arial 12 bold")
+        L_total_J.grid(row=24, column=26)
+        L_Mis_en_jeu=Label(root, text=f"Argent en jeu: ${self.bet}", font="Arial 12 bold")
+        L_Mis_en_jeu.grid(row=24, column=2)
+        L_Argent_J=Label(root, text=f"Argent gagné/perdu par le Joueur: {self.monnaie}", font="Arial 12 bold")
+        L_Argent_J.grid(row=25, column=2)
+        Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=self.piocher)
+        Pioche.grid(row=48, column=24)
+        Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=self.dealer_stuff)
+        Arret_P.grid(row=48, column =23)
+        Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy)
+        Sortir.grid(row=48, column=48)
+        reset=Button(root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
+        reset.grid(row=48, column=45)
+        root.mainloop()
+    
+    
     @staticmethod
     def valeur_de_carte_J(card_value):
+        global root
         if card_value>10 and card_value <14:
             return 10
         elif card_value==1:
-            nb=int(input("Voulez vous que l'As valle 1, 10, ou 11?"))#faire un entry pour connaitre l'envie de l'utilisateur
-            return nb
+            nb=Entry(root)
+            nb.place(x=100, y=100)
+            nb.focus_set()
+            valeur=IntVar()
+            def get_value():
+                valeur.set(nb.get())
+            L_nb=Button(root, text="Valeur de l'As (1, 10, 11): ", command=get_value, font="Arial 12 bold", relief=RAISED)
+            L_nb.place(x=50, y=50)
+            root.wait_variable(valeur)
+            return valeur.get()
         else:
             return card_value
     
@@ -69,7 +111,7 @@ class BlackJack:
     
     def piocher(self):
         self.Carte_J.append(self.paquet1.getCarteAt(self.indice_J))
-        self.total_J=self.total_J+self.valeur_de_carte_J(self.Carte_J[-1].Valeur)
+        self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
         self.indice_J=self.indice_J+1
         self.add_image_J()
                 
@@ -138,7 +180,7 @@ class BlackJack:
         print(f"Vous repartez avec ${self.monnaie}")
     
     def window(self):
-        root = Tk()
+        global root
         root.title("BlackJack")
         root.attributes("-fullscreen", True)
         rows = 0
@@ -168,8 +210,10 @@ class BlackJack:
         reset.grid(row=48, column=45)
         root.mainloop()
 
+
 ################################################################################################
 #Storage des cartes
+root = Tk()
 coeur={1:"Carte\\ace_of_hearts.png", 
        2:"Carte\\2_of_hearts.png", 
        3:"Carte\\3_of_hearts.png", 
