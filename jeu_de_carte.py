@@ -31,8 +31,9 @@ def main():
     paquetA.remplir()
     paquetB.remplir()
     btlle=Bataille(paquetA, paquetB)
-    BlckJ=BlackJack(paquetA, paquetB)
-    BlckJ.blackjack()
+    BlckJ=BlackJack(paquetA, paquetB, "Bismaon")
+    #BlckJ.blackjack()
+    BlckJ.window()
 if __name__=="__main__":
     main()
 

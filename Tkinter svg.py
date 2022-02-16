@@ -58,14 +58,14 @@ dico_carte={"coeur":coeur, "trefle":trefle, "carreau":carreau, "pique":pique}
 card=Carte(1, 1)
 n_card=0
 def add_image_J():
-    global card, n_card
+    global card, n_card, dico_carte, coeur, trefle, carreau, pique
     image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[card.getCouleur()][card.Valeur]))
     size=image.size
     resize_image = image.resize((size[0]//4, size[1]//4))
     img = ImageTk.PhotoImage(resize_image)
     img_lab=Label(image=img)
     img_lab.image = img # keep a reference!
-    img_lab.place(x=544+(50*n_card),y=450)
+    img_lab.place(x=544+(50*n_card),y=100)
     n_card+=1
     return img_lab
 
