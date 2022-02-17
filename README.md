@@ -5,4 +5,6 @@ I'm gonna try to make a blackjack with tkinter, and hopefully succeed.
 Needed before running:
   - tkinter
   - PIL (pillow)
+  - MadFut
+  - Boom Beach
   

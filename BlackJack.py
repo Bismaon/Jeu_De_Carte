@@ -8,75 +8,78 @@ class BlackJack:
     def __init__(self, paquetA, paquetB, username:str):
         self.paquet1=paquetA
         self.paquet2=paquetB
-        self.monnaie=0
-        self.username=username
-        self.Carte_J=[]
-        self.Carte_D=[]
-        self.indice_J=2
-        self.indice_D=2
+        self.monnaie:int=0
+        self.username:str=username
+        self.Carte_J:list[Carte]=[]
+        self.Carte_D:list[Carte]=[]
+        self.indice_J=0
+        self.indice_D=0
         self.total_J=0
         self.total_D=0
         self.bet=0
+        self.root=Tk()
+        self.root.title("BlackJack")
+        self.root.attributes("-fullscreen", True)
+        self.rows = 0
+        self.L_Dealer = Label(self.root, text="Dealer", font="Arial 17 bold")
+        self.L_Joueur= Label(self.root, text=self.username, font="Arial 17 bold")
+        self.L_total_D=Label(self.root, text=f"Total du Dealer: {self.total_D}",font="Arial 12 bold")
+        self.L_total_J=Label(self.root, text=f"Total du Joueur: {self.total_J}",font="Arial 12 bold")
+        self.L_Mis_en_jeu=Label(self.root, text=f"Argent en jeu: ${self.bet}", font="Arial 12 bold")
+        self.L_Argent_J=Label(self.root, text=f"Argent gagné/perdu par le Joueur: {self.monnaie}", font="Arial 12 bold")
+        self.Pioche = Button(self.root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=self.piocher)
+        self.Arret_P=Button(self.root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=self.dealer_stuff)
+        self.Sortir=Button(self.root, text="Exit", font="Arial 12 bold", relief=RAISED, command=self.root.destroy)
+        self.reset=Button(self.root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
+        self.perdu=False
+        self.mis_en_place_des_widgets()
+        
+        self.root.mainloop()
     
-    
-    def window(self):
-        root = Tk()
-        root.title("BlackJack")
-        root.attributes("-fullscreen", True)
-        rows = 0
-        while rows < 50:
-            root.rowconfigure(rows, weight=1)
-            root.columnconfigure(rows,weight=1)
-            rows += 1
-        L_Dealer = Label(root, text="Dealer", font="Arial 17 bold")
-        L_Dealer.grid(row=2, column =24)
-        L_Joueur= Label(root, text=self.username, font="Arial 17 bold")
-        L_Joueur.grid(row=24, column=24)
-        L_total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold")
-        L_total_D.grid(row=2, column=26)
-        L_total_J=Label(root, text="Total du Joueur: ",font="Arial 12 bold")
-        L_total_J.grid(row=24, column=26)
-        L_Mis_en_jeu=Label(root, text=f"Argent en jeu: ${self.bet}", font="Arial 12 bold")
-        L_Mis_en_jeu.grid(row=24, column=2)
-        L_Argent_J=Label(root, text=f"Argent gagné/perdu par le Joueur: {self.monnaie}", font="Arial 12 bold")
-        L_Argent_J.grid(row=25, column=2)
-        Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=self.piocher)
-        Pioche.grid(row=48, column=24)
-        Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=self.dealer_stuff)
-        Arret_P.grid(row=48, column =23)
-        Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy)
-        Sortir.grid(row=48, column=48)
-        reset=Button(root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
-        reset.grid(row=48, column=45)
-        root.mainloop()
-    
-    
-    @staticmethod
-    def valeur_de_carte_J(card_value):
-        global root
+    def mis_en_place_des_widgets(self):
+        self.truc=3
+        while self.rows < 50:
+            self.root.rowconfigure(self.rows, weight=1)
+            self.root.columnconfigure(self.rows,weight=1)
+            self.rows += 1
+        self.L_Dealer.grid(row=2, column =24)
+        self.L_Joueur.grid(row=24, column=24)
+        self.L_total_D.grid(row=2, column=26)
+        self.L_total_J.grid(row=24, column=26)
+        self.L_Mis_en_jeu.grid(row=24, column=2)
+        self.L_Argent_J.grid(row=25, column=2)
+        self.Pioche.grid(row=48, column=24)
+        self.Arret_P.grid(row=48, column =23)
+        self.Sortir.grid(row=48, column=48)
+        self.reset.grid(row=48, column=45)
+
+    def valeur_de_carte_J(self,card_value):
         if card_value>10 and card_value <14:
             return 10
         elif card_value==1:
-            nb=Entry(root)
+            nb=Entry(self.root)
             nb.place(x=100, y=100)
             nb.focus_set()
             valeur=IntVar()
-            answer_nb=Label(root, text='')
+            answer_nb=Label(self.root, text='')
             answer_nb.place(x=0,y=0)
             def get_value():
                 if not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11):
                     answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
                 else:
-                    valeur.set(nb.get())
-            B_nb=Button(root, text="Valeur de l'As (1, 10, 11): ", command=get_value, font="Arial 12 bold", relief=RAISED)
+                    valeur.set(int(nb.get()))
+            B_nb=Button(self.root, text="Valeur de l'As (1, 10, 11): ", command=get_value, font="Arial 12 bold", relief=RAISED)
             B_nb.place(x=50, y=50)
-            root.wait_variable(valeur)
+            self.root.wait_variable(valeur)
+            B_nb.destroy()
+            answer_nb.destroy()
+            nb.destroy()
             return valeur.get()
         else:
             return card_value
     
-    @staticmethod
-    def valeur_de_carte_D(valeur, total):
+    
+    def valeur_de_carte_D(self,valeur, total):
         if valeur>10 and valeur <14:
             return 10
         elif valeur ==1:
@@ -95,7 +98,7 @@ class BlackJack:
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(image=img)
+        img_lab=Label(self.root, image=img)
         img_lab.image = img # keep a reference!
         img_lab.place(x=544+(50*(len(self.Carte_D)-1)),y=100)
         return img_lab
@@ -106,7 +109,7 @@ class BlackJack:
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(image=img)
+        img_lab=Label(self.root,image=img)
         img_lab.image = img # keep a reference!
         img_lab.place(x=544+(50*(len(self.Carte_J)-1)),y=450)
         return img_lab
@@ -115,14 +118,23 @@ class BlackJack:
         pass
     
     def piocher(self):
+        #if self.monnaie ==0 make entry (TopLevel) to change value else continue
         self.Carte_J.append(self.paquet1.getCarteAt(self.indice_J))
         self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
         self.indice_J=self.indice_J+1
+        self.L_total_J["text"]=f"Total du Joueur: {self.total_J}"
+        if self.total_J>21:
+            self.perdu=True
         self.add_image_J()
                 
     def dealer_stuff(self):
-        pass
-    
+        while self.total_D<self.total_J and self.total_D<22 and not self.perdu:
+            self.Carte_D.append(self.paquet2.getCarteAt(self.indice_D))
+            self.total_D=self.total_D+int(self.valeur_de_carte_D(self.Carte_D[-1].Valeur, self.total_D))
+            self.indice_D=self.indice_D+1
+            self.L_total_D["text"]=f"Total du Dealer: {self.total_J}"
+            self.add_image_D()
+        
     def blackjack(self):
         """Le but du blackjack est de battre le dealer.
         Pour le battre il faut arriver à etre le plus proche de 21 sans avoir plus.
@@ -183,42 +195,11 @@ class BlackJack:
             vouloir=input("Voulez vous continuer à jouer? [True/False] ")
             
         print(f"Vous repartez avec ${self.monnaie}")
-    
-    def window(self):
-        global root
-        root.title("BlackJack")
-        root.attributes("-fullscreen", True)
-        rows = 0
-        while rows < 50:
-            root.rowconfigure(rows, weight=1)
-            root.columnconfigure(rows,weight=1)
-            rows += 1
-        L_Dealer = Label(root, text="Dealer", font="Arial 17 bold")
-        L_Dealer.grid(row=2, column =24)
-        L_Joueur= Label(root, text=self.username, font="Arial 17 bold")
-        L_Joueur.grid(row=24, column=24)
-        L_total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold")
-        L_total_D.grid(row=2, column=26)
-        L_total_J=Label(root, text="Total du Joueur: ",font="Arial 12 bold")
-        L_total_J.grid(row=24, column=26)
-        L_Mis_en_jeu=Label(root, text=f"Argent en jeu: ${self.bet}", font="Arial 12 bold")
-        L_Mis_en_jeu.grid(row=24, column=2)
-        L_Argent_J=Label(root, text=f"Argent gagné/perdu par le Joueur: {self.monnaie}", font="Arial 12 bold")
-        L_Argent_J.grid(row=25, column=2)
-        Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=self.piocher)
-        Pioche.grid(row=48, column=24)
-        Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=self.dealer_stuff)
-        Arret_P.grid(row=48, column =23)
-        Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy)
-        Sortir.grid(row=48, column=48)
-        reset=Button(root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
-        reset.grid(row=48, column=45)
-        root.mainloop()
+        
 
 
 ################################################################################################
 #Storage des cartes
-root = Tk()
 coeur={1:"Carte\\ace_of_hearts.png", 
        2:"Carte\\2_of_hearts.png", 
        3:"Carte\\3_of_hearts.png", 

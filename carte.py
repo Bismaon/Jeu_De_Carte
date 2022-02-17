@@ -36,8 +36,8 @@ class PaquetDeCarte:
     def remplir(self):
         """Permet de remplir le paquet de carte, de manière croissante.
         """
-        for v in range(1,14):
-            for c in range(1,5):
+        for c in range(1,5):
+            for v in range(1,14):
                 self.contenu.append(Carte(c, v))
                 
     def getCarteAt(self, pos):

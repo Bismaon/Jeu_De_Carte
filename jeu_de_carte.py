@@ -33,7 +33,6 @@ def main():
     btlle=Bataille(paquetA, paquetB)
     BlckJ=BlackJack(paquetA, paquetB, "Bismaon")
     #BlckJ.blackjack()
-    BlckJ.window()
 if __name__=="__main__":
     main()
 
