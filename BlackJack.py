@@ -32,6 +32,9 @@ class BlackJack:
         self.Sortir=Button(self.root, text="Exit", font="Arial 12 bold", relief=RAISED, command=self.root.destroy)
         self.reset=Button(self.root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
         self.perdu=False
+        self.frame_J=Frame(self.root, width=726, height=200)
+        self.frame_J.place(x=544, y=450)
+           
         self.mis_en_place_des_widgets()
         
         self.root.mainloop()
@@ -103,22 +106,17 @@ class BlackJack:
         return img_lab
     
     def add_image_J(self):
-        self.frame=Frame(self.root, bg='black')
-        self.frame.place(x=544, y=450)
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[
             self.Carte_J[-1].getCouleur()][self.Carte_J[-1].Valeur]))
         size=image.size
-        self.frame['width']=size[1]*6
-        self.frame['height']=size[0]
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(self.frame,image=img)
+        img_lab=Label(self.frame_J,image=img)
         img_lab.image = img # keep a reference!
-        img_lab.grid(row=0, column=len(self.Carte_J))#problem with the printing of the image
+        img_lab.place(x=50*(len(self.Carte_J)-1), y=0)
         
-    
-    def reinit(self):
-        for widgets in self.frame.winfo_children():
+    def reinit(self): #have to complete 
+        for widgets in self.frame_J.winfo_children():
             widgets.destroy()
     
     def piocher(self):
