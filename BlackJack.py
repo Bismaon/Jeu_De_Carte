@@ -33,13 +33,14 @@ class BlackJack:
         self.reset=Button(self.root, text="Reset", font="Arial 12 bold", relief=RAISED, command=self.reinit)
         self.perdu=False
         self.frame_J=Frame(self.root, width=726, height=200)
-        self.frame_J.place(x=544, y=450)
-           
+        self.frame_D=Frame(self.root, width=726, height=200)
         self.mis_en_place_des_widgets()
         
         self.root.mainloop()
     
     def mis_en_place_des_widgets(self):
+        self.frame_J.place(x=544, y=450)
+        self.frame_D.place(x=544, y=100)
         while self.rows < 50:
             self.root.rowconfigure(self.rows, weight=1)
             self.root.columnconfigure(self.rows,weight=1)
