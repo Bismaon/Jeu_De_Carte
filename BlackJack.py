@@ -108,6 +108,8 @@ class BlackJack:
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[
             self.Carte_J[-1].getCouleur()][self.Carte_J[-1].Valeur]))
         size=image.size
+        self.frame['width']=size[1]*6
+        self.frame['height']=size[0]
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
         img_lab=Label(self.frame,image=img)
