@@ -37,7 +37,6 @@ class BlackJack:
         self.root.mainloop()
     
     def mis_en_place_des_widgets(self):
-        self.truc=3
         while self.rows < 50:
             self.root.rowconfigure(self.rows, weight=1)
             self.root.columnconfigure(self.rows,weight=1)
@@ -104,18 +103,21 @@ class BlackJack:
         return img_lab
     
     def add_image_J(self):
+        self.frame=Frame(self.root, bg='black')
+        self.frame.place(x=544, y=450)
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[
             self.Carte_J[-1].getCouleur()][self.Carte_J[-1].Valeur]))
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(self.root,image=img)
+        img_lab=Label(self.frame,image=img)
         img_lab.image = img # keep a reference!
-        img_lab.place(x=544+(50*(len(self.Carte_J)-1)),y=450)
-        return img_lab
+        img_lab.grid(row=0, column=len(self.Carte_J))#problem with the printing of the image
+        
     
     def reinit(self):
-        pass
+        for widgets in self.frame.winfo_children():
+            widgets.destroy()
     
     def piocher(self):
         #if self.monnaie ==0 make entry (TopLevel) to change value else continue
