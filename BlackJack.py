@@ -57,10 +57,10 @@ class BlackJack:
                     11:"Carte\\jack_of_spades2.png", 
                     12:"Carte\\queen_of_spades2.png", 
                     13:"Carte\\king_of_spades2.png"}}
-        self.min_font="Arial 12 bold"
-        self.max_font="Arial 17 bold"
-        self.paquet1 = paquetA
-        self.paquet2 = paquetB
+        self.min_font:str="Arial 12 bold"
+        self.max_font:str="Arial 17 bold"
+        self.paquet1:PaquetDeCarte = paquetA
+        self.paquet2:PaquetDeCarte = paquetB
         shuffle(self.paquet1.contenu)
         shuffle(self.paquet2.contenu)
         self.monnaie:str = '0'
@@ -71,13 +71,13 @@ class BlackJack:
         self.indice_D = 0
         self.total_J = 0
         self.total_D = 0
-        self.bet = 0
-        self.root = Tk()
+        self.bet:int = 0
+        self.root:Tk = Tk()
         self.root.title("BlackJack")
         self.root.attributes('-fullscreen', True)
-        self.rows = 0
-        self.keep=False
-        self.L_Dealer = Label(self.root, 
+        self.rows:int = 0
+        self.keep:bool=False
+        self.L_Dealer:Label = Label(self.root, 
                               text="Dealer", 
                               font=self.max_font)
         self.L_Joueur = Label(self.root, 
