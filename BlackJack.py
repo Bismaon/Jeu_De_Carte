@@ -74,27 +74,39 @@ class BlackJack:
         self.bet:int = 0
         self.root:Tk = Tk()
         self.root.title("BlackJack")
-        self.root.attributes('-fullscreen', True)
+        self.root.attributes('-fullscreen', 
+                             True)
+        self.root.configure(bg='#f0f0c8')
         self.rows:int = 0
         self.keep:bool=False
+        self.B_regle:Button=Button(self.root, 
+                                   font=self.min_font, 
+                                   text='Regle', 
+                                   command=self.reglement)
         self.L_Dealer:Label = Label(self.root, 
                               text="Dealer", 
-                              font=self.max_font)
+                              font=self.max_font,
+                                bg="#f0f0c8")
         self.L_Joueur = Label(self.root, 
                               text=self.username, 
-                              font=self.max_font)
+                              font=self.max_font,
+                                bg="#f0f0c8")
         self.L_total_D = Label(self.root, 
                                text=f"Total du Dealer: {self.total_D}",
-                               font=self.min_font)
+                               font=self.min_font,
+                               bg="#f0f0c8")
         self.L_total_J = Label(self.root,
                                text=f"Total: {self.total_J}",
-                               font=self.min_font)
+                               font=self.min_font,
+                               bg="#f0f0c8")
         self.L_Mis_en_jeu = Label(self.root, 
                                   text=f"Argent en jeu: ${self.bet}", 
-                                  font=self.min_font)
+                                  font=self.min_font,
+                                  bg="#f0f0c8")
         self.L_Argent_J = Label(self.root, 
                                 text=f"Argent gagné/perdu par le Joueur: ${self.monnaie}", 
-                                font=self.min_font)
+                                font=self.min_font,
+                                bg="#f0f0c8")
         self.Pioche = Button(self.root, 
                              text="Pioche", 
                              font=self.min_font, 
@@ -116,15 +128,16 @@ class BlackJack:
                             relief=RAISED, 
                             command=self.reinit)
         self.frame_J =Frame(self.root, 
-                            width=726, 
-                            height=200)
+                            width=700, 
+                            height=400,
+                            bg="#35654d")
         self.frame_D =Frame(self.root, 
-                            width=726, 
-                            height=200)
+                            width=700, 
+                            height=400,
+                            bg="#35654d")
         self.mis_en_place_des_widgets()
-        self.reglement()
-        self.root.mainloop()
         
+        self.root.mainloop()
         
     def mis_en_place_des_widgets(self):
         while self.rows < 50:
@@ -134,11 +147,11 @@ class BlackJack:
                                       weight=1)
             self.rows += 1
         self.frame_J.grid(row=26, 
-                          column=22, 
-                          columnspan=22)
+                          column=14, 
+                          columnspan=20)
         self.frame_D.grid(row=4, 
-                          column=22, 
-                          columnspan=22)
+                          column=14, 
+                          columnspan=20)
         self.L_Dealer.grid(row=2, 
                            column =24)
         self.L_total_D.grid(row=2, 
@@ -158,20 +171,21 @@ class BlackJack:
         self.Sortir.grid(row=48, 
                          column=48)
         self.reset.grid(row=48, 
-                        column=45)
+                        column=46)
+        self.B_regle.grid(row=48, 
+                          column=44)
 
     def reglement(self):
         pop_up=Toplevel(self.root)
-        pop_up.wm_attributes("-topmost", 1)
         regle=Label(pop_up,
                     font='Arial 12', 
                     justify='left',
-                    text="Le but du blackjack est de battre le dealer. Pour le battre il faut arriver à etre le plus proche de 21 sans avoir plus.\nSi le dealer a moins que vous ou depasse 21 vous gagnez. Si le dealer a plus que vous et moins de 21, il gagne.")
+                    text="Le but du blackjack est de battre le dealer. Pour le battre il faut arriver à etre le plus proche de 21 sans avoir plus.\nSi le dealer a moins que vous ou dépasse 21 vous gagnez. Si le dealer a plus que vous et moins de 21, il gagne.")
         regle.pack()
         regle2=Label(pop_up, 
                      font=self.min_font,
                      justify='left',
-                     text="RAPPEL:\n-   Si vous obtenez 21 en recevant les cartes, vous gagnez.\n-   Un As peut valoir 1, 10, ou 11")
+                     text="RAPPEL:\n-   Un As peut valoir 1, 10, ou 11\n-   Le roi, la reine, et le valet vallent 10")
         regle2.pack()
         B_exit=Button(pop_up,
                       font=self.min_font,
@@ -185,15 +199,16 @@ class BlackJack:
             return 10
         elif card_value==1:
             nb=Entry(self.root)
-            nb.place(x=100, 
-                     y=100)
+            nb.place(x=200, 
+                     y=800)
             nb.focus_set()
             valeur=IntVar()
             answer_nb=Label(self.root, 
-                            text='')
-            answer_nb.place(x=0,
-                            y=0)
-            def get_value():
+                            text='',
+                            bg="#f0f0c8")
+            answer_nb.place(x=200,
+                            y=700)
+            def get_value(event=None):
                 if not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11):
                     answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
                 else:
@@ -203,8 +218,9 @@ class BlackJack:
                         command=get_value, 
                         font=self.min_font, 
                         relief=RAISED)
-            B_nb.place(x=50, 
-                       y=50)
+            B_nb.place(x=200, 
+                       y=750)
+            self.root.bind('<Return>',get_value)
             self.root.wait_variable(valeur)
             B_nb.destroy()
             answer_nb.destroy()
@@ -232,9 +248,11 @@ class BlackJack:
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(self.frame_D,image=img)
+        img_lab=Label(self.frame_D,
+                      image=img,
+                      bg="#35654d")
         img_lab.image = img # keep a reference!
-        img_lab.place(x=50*(len(self.Carte_D)-1), y=0)
+        img_lab.place(x=50+50*(len(self.Carte_D)-1), y=100)
     
     def add_image_J(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
@@ -243,9 +261,11 @@ class BlackJack:
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
-        img_lab=Label(self.frame_J,image=img)
+        img_lab=Label(self.frame_J,
+                      image=img,
+                      bg="#35654d")
         img_lab.image = img # keep a reference!
-        img_lab.place(x=50*(len(self.Carte_J)-1), y=0)
+        img_lab.place(x=50+50*(len(self.Carte_J)-1), y=100)
         
     def reinit(self): #completed
         if not self.keep:
@@ -273,15 +293,16 @@ class BlackJack:
     def piocher(self):
         if self.bet == 0:
             E_monnaie=Entry(self.root)
-            E_monnaie.place(x=100, 
-                            y=100)#change values
+            E_monnaie.place(x=200, 
+                            y=800)#change values
             E_monnaie.focus_set()
             valeur=IntVar()
             answer_monnaie=Label(self.root, 
-                                 text='')
-            answer_monnaie.place(x=0,
-                                 y=0)
-            def get_value():
+                                 text='',
+                                 bg="#f0f0c8")
+            answer_monnaie.place(x=200,
+                                 y=700)
+            def get_value(event=None):
                 if not int(E_monnaie.get())>0:
                     answer_monnaie.config(text="Le bet doit etre superieur à 0")
                 else:
@@ -291,7 +312,9 @@ class BlackJack:
                         command=get_value, 
                         font=self.min_font, 
                         relief=RAISED)
-            B_nb.place(x=50, y=50)
+            self.root.bind('<Return>',get_value)
+            B_nb.place(x=200, 
+                       y=750)
             self.root.wait_variable(valeur)
             B_nb.destroy()
             answer_monnaie.destroy()
@@ -302,9 +325,9 @@ class BlackJack:
         self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
         self.indice_J=self.indice_J+1
         self.L_total_J["text"]=f"Total: {self.total_J}"
+        self.add_image_J()
         if self.total_J>21:
             self.perdre()
-        self.add_image_J()
                 
     def dealer_stuff(self):
         while self.total_D<self.total_J and self.total_D<22:
