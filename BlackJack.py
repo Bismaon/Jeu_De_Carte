@@ -3,9 +3,6 @@ from carte import *
 from tkinter import *
 from PIL import Image, ImageTk
 import os
-###IMPORTANT###
-#HAVE TO SET FRAMES TO BE THE SAME FOR EVERY COMPUTER SIZE
-# 0% DONE 
 class BlackJack:
     def __init__(self, paquetA, paquetB, username:str):
         self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png", 
