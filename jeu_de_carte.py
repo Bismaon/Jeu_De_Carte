@@ -21,6 +21,7 @@ def main():
     paquetB.remplir()
     btlle=Bataille(paquetA, paquetB)
     BlackJack(paquetA, paquetB, "Bismaon")
+    return 0
 if __name__=="__main__":
     main()
 

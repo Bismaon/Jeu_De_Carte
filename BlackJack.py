@@ -3,6 +3,9 @@ from carte import *
 from tkinter import *
 from PIL import Image, ImageTk
 import os
+###IMPORTANT###
+#HAVE TO SET FRAMES TO BE THE SAME FOR EVERY COMPUTER SIZE
+# 0% DONE 
 class BlackJack:
     def __init__(self, paquetA, paquetB, username:str):
         self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png", 
@@ -129,11 +132,11 @@ class BlackJack:
                             command=self.reinit)
         self.frame_J =Frame(self.root, 
                             width=700, 
-                            height=400,
+                            height=200,
                             bg="#35654d")
         self.frame_D =Frame(self.root, 
                             width=700, 
-                            height=400,
+                            height=200,
                             bg="#35654d")
         self.mis_en_place_des_widgets()
         
@@ -294,14 +297,14 @@ class BlackJack:
         if self.bet == 0:
             E_monnaie=Entry(self.root)
             E_monnaie.place(x=200, 
-                            y=800)#change values
+                            y=500)#change values
             E_monnaie.focus_set()
             valeur=IntVar()
             answer_monnaie=Label(self.root, 
                                  text='',
                                  bg="#f0f0c8")
             answer_monnaie.place(x=200,
-                                 y=700)
+                                 y=400)
             def get_value(event=None):
                 if not int(E_monnaie.get())>0:
                     answer_monnaie.config(text="Le bet doit etre superieur à 0")
@@ -314,7 +317,7 @@ class BlackJack:
                         relief=RAISED)
             self.root.bind('<Return>',get_value)
             B_nb.place(x=200, 
-                       y=750)
+                       y=450)
             self.root.wait_variable(valeur)
             B_nb.destroy()
             answer_monnaie.destroy()
