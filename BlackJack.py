@@ -4,7 +4,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import os
 class BlackJack:
-    def __init__(self, paquetA, paquetB, username:str):
+    def __init__(self, paquetA, paquetB):
         self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png", 
                     2:"Carte\\2_of_hearts.png", 
                     3:"Carte\\3_of_hearts.png", 
@@ -64,20 +64,20 @@ class BlackJack:
         shuffle(self.paquet1.contenu)
         shuffle(self.paquet2.contenu)
         self.monnaie:str = '0'
-        self.username:str = username
+        self.rows:int = 0
+        self.keep:bool=False
         self.Carte_J:list[Carte] = []
         self.Carte_D:list[Carte] = []
-        self.indice_J = 0
-        self.indice_D = 0
-        self.total_J = 0
-        self.total_D = 0
+        self.indice_J:int = 0
+        self.indice_D:int = 0
+        self.total_J:int = 0
+        self.total_D:int = 0
         self.bet:int = 0
+        self.username:str = ''
         self.root:Tk = Tk()
         self.root.title("BlackJack")
         self.root.attributes("-fullscreen", True)
         self.root.configure(bg='#f0f0c8')
-        self.rows:int = 0
-        self.keep:bool=False
         self.B_regle:Button=Button(self.root, 
                                    font=self.min_font, 
                                    text='Regle', 
@@ -134,6 +134,7 @@ class BlackJack:
                             width=700, 
                             height=250,
                             bg="#35654d")
+        
         self.mis_en_place_des_widgets()
         self.root.mainloop()
         
@@ -144,6 +145,7 @@ class BlackJack:
             self.root.columnconfigure(self.rows,
                                       weight=1)
             self.rows += 1
+        
         self.frame_J.grid(row=25, 
                           column=14, 
                           columnspan=20,
@@ -232,7 +234,6 @@ class BlackJack:
         if not self.keep:
             self.monnaie='0'
             self.L_Argent_J['text']=f"Argent gagné/perdu par le Joueur: ${self.monnaie}"
-        
         self.bet=0
         self.total_J=0
         self.total_D=0
@@ -250,8 +251,12 @@ class BlackJack:
         self.indice_D=0
         self.Carte_J=[]
         self.Carte_D=[]
+        self.username=""
+        self.L_Joueur['text']=self.username
     
     def piocher(self, event=None):
+        if self.username=="":
+            self.set_username()
         if self.bet == 0:
             E_monnaie=Entry(self.root)
             E_monnaie.grid(row=26,
@@ -385,7 +390,8 @@ class BlackJack:
                              text="Exit", 
                              font=self.min_font,
                              relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), self.reinit()])
+                             command=lambda: [pop_up.destroy(), 
+                                              self.reinit()])
         B_exit.pack()
         pop_up.mainloop()
 
@@ -395,7 +401,7 @@ class BlackJack:
         pop_up.geometry('250x100')   
         L_egal=Label(pop_up,
                      font=self.min_font,
-                     text="Vous ex-aequo!")
+                     text="Vous etes à ex-aequo!")
         L_egal.pack()
         B_exit=Button(pop_up, 
                              text="Exit", 
@@ -404,3 +410,25 @@ class BlackJack:
                              command=lambda: [pop_up.destroy(), self.reinit()])
         B_exit.pack()
         pop_up.mainloop()
+    
+    def set_username(self):
+        T_username= Toplevel(self.root) 
+        T_username.geometry('250x100')
+        L_username=Label(T_username,
+                         font=self.min_font,
+                         text="Entrer votre username:")
+        L_username.pack()
+        E_username=Entry(T_username,
+                         font=self.min_font)
+        E_username.pack()
+        
+        def init_username(event=None):
+            self.username=str(E_username.get())
+            self.L_Joueur["text"]=self.username
+        B_exit=Button(T_username,
+                      text="Accepter",
+                      font=self.min_font,
+                      relief=RAISED, 
+                      command=lambda:[(init_username(), T_username.destroy())])
+        B_exit.pack()
+        T_username.mainloop()
