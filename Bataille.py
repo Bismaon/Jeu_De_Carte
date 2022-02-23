@@ -1,5 +1,9 @@
 from random import shuffle
 from carte import *
+###To do list:
+#    - make it visual
+#    - have interaction with the user
+#    - be able to choose which game one wnats to play, black, or bataille
 class Bataille:
     def __init__(self, paquet1:list, paquet2:list):
         self.jeu1=paquet1

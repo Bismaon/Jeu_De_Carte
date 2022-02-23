@@ -187,6 +187,7 @@ class BlackJack:
                        self.reglement)
 
     def reglement(self, event=None):
+        self.deactivate_button()
         pop_up=Toplevel(self.root)
         regle=Label(pop_up,
                     font='Arial 12', 
@@ -201,7 +202,7 @@ class BlackJack:
         B_exit=Button(pop_up,
                       font=self.min_font,
                       text="Exit",
-                      command=pop_up.destroy)
+                      command=lambda:[(pop_up.destroy(), self.activate_button())])
         B_exit.pack()
         pop_up.mainloop()
     
@@ -234,6 +235,8 @@ class BlackJack:
         if not self.keep:
             self.monnaie='0'
             self.L_Argent_J['text']=f"Argent gagné/perdu par le Joueur: ${self.monnaie}"
+            self.username=""
+            self.L_Joueur['text']=self.username
         self.bet=0
         self.total_J=0
         self.total_D=0
@@ -251,13 +254,13 @@ class BlackJack:
         self.indice_D=0
         self.Carte_J=[]
         self.Carte_D=[]
-        self.username=""
-        self.L_Joueur['text']=self.username
-    
+        
     def piocher(self, event=None):
         if self.username=="":
+            self.deactivate_button()
             self.set_username()
         if self.bet == 0:
+            self.deactivate_button()
             E_monnaie=Entry(self.root)
             E_monnaie.grid(row=26,
                            column=2)
@@ -287,12 +290,14 @@ class BlackJack:
             E_monnaie.destroy()
             self.bet=int(valeur.get())
             self.L_Mis_en_jeu['text']=f"Argent en jeu: ${self.bet}"
+            self.activate_button()
         self.Carte_J.append(self.paquet1.getCarteAt(self.indice_J))
         self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
         self.indice_J=self.indice_J+1
         self.L_total_J["text"]=f"Total: {self.total_J}"
         self.add_image_J()
         if self.total_J>21:
+            self.deactivate_button()
             self.perdre()
                 
     def dealer_stuff(self, event=None):
@@ -304,16 +309,20 @@ class BlackJack:
             self.L_total_D["text"]=f"Total du Dealer: {self.total_D}"
             self.add_image_D()
         if self.total_D<22 and self.total_D>self.total_J:
+            self.deactivate_button()
             self.perdre()
         elif self.total_D>21 or self.total_D<self.total_J:
+            self.deactivate_button()
             self.gagner()
         else:
+            self.deactivate_button()
             self.egaliter()
     
     def valeur_de_carte_J(self,card_value):
         if card_value>10 and card_value <14:
             return 10
         elif card_value==1:
+            self.deactivate_button()
             nb=Entry(self.root)
             nb.grid(row=26, 
                     column=2)
@@ -341,6 +350,7 @@ class BlackJack:
             B_nb.destroy()
             answer_nb.destroy()
             nb.destroy()
+            self.activate_button()
             return valeur.get()
         else:
             return card_value
@@ -372,7 +382,9 @@ class BlackJack:
                              text="Exit", 
                              font=self.min_font,
                              relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), self.reinit()])
+                             command=lambda: [pop_up.destroy(), 
+                                              self.reinit(), 
+                                              self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
         
@@ -391,7 +403,8 @@ class BlackJack:
                              font=self.min_font,
                              relief=RAISED, 
                              command=lambda: [pop_up.destroy(), 
-                                              self.reinit()])
+                                              self.reinit(), 
+                                              self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
 
@@ -407,7 +420,9 @@ class BlackJack:
                              text="Exit", 
                              font=self.min_font,
                              relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), self.reinit()])
+                             command=lambda: [pop_up.destroy(), 
+                                              self.reinit(), 
+                                              self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
     
@@ -429,6 +444,31 @@ class BlackJack:
                       text="Accepter",
                       font=self.min_font,
                       relief=RAISED, 
-                      command=lambda:[(init_username(), T_username.destroy())])
+                      command=lambda:[(init_username(),
+                                       T_username.destroy(), 
+                                       self.activate_button())])
         B_exit.pack()
         T_username.mainloop()
+        
+    def activate_button(self, event=None):
+        for widgets in self.root.winfo_children():
+            if type(widgets)==Button:
+                widgets['state']='normal'
+        self.root.bind("<p>", 
+                       self.piocher)
+        self.root.bind("<t>", 
+                       self.dealer_stuff)
+        self.root.bind("<r>", 
+                       self.reinit)
+        self.root.bind("<R>", 
+                       self.reglement)
+    
+    def deactivate_button(self, event=None):
+        for widgets in self.root.winfo_children():
+            if type(widgets)==Button:
+                if widgets["text"]!="Exit":
+                    widgets['state']='disabled'
+        self.root.unbind("<p>")
+        self.root.unbind("<t>")
+        self.root.unbind("<r>")
+        self.root.unbind("<R>")

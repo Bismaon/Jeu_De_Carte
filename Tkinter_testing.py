@@ -69,10 +69,6 @@ def add_image_J():
     n_card+=1
     return img_lab
 
-def add_image_D():
-    pass
-def commande_dealer(): 
-    pass
 root = Tk()
 root.title("BlackJack")
 Username="Bismaon"
@@ -82,6 +78,10 @@ while rows < 50:
     root.rowconfigure(rows, weight=1)
     root.columnconfigure(rows,weight=1)
     rows += 1
+def disable():
+    for widgets in root.winfo_children():
+        if type(widgets)==Button:
+            widgets['state']='disabled'
 L_Dealer = Label(root, text="Dealer", font="Arial 17 bold").grid(row=2, column =24)
 L_Joueur= Label(root, text=Username, font="Arial 17 bold").grid(row=28, column=24)
 L_Total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold").grid(row=2, column=26)
@@ -90,8 +90,12 @@ L_Mis_en_jeu=Label(root, text="Argent en jeu:", font="Arial 12 bold").grid(row=2
 L_Argent_J=Label(root, text="Argent gagné/perdu par le Joueur: ", font="Arial 12 bold").grid(row=29, column=2)
 L_Argent_D=Label(root, text="Argent gagné/perdu par le dealer: ", font="Arial 12 bold").grid(row=2, column=2)
 Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=add_image_J).grid(row=48, column=24)
-Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=commande_dealer).grid(row=48, column =23)
+Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=disable).grid(row=48, column =23)
 Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy).grid(row=48, column=48)
+def disable():
+    for widgets in root.winfo_children():
+        if type(widgets)==Button:
+            widgets['state']='disabled'
 root.mainloop()
         
 

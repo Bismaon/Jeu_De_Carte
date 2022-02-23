@@ -1,4 +1,3 @@
-
 class Carte:
     def __init__(self, couleur, valeur):
         self.Couleur = couleur
