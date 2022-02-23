@@ -259,6 +259,7 @@ class BlackJack:
         if self.username=="":
             self.deactivate_button()
             self.set_username()
+            return
         if self.bet == 0:
             self.deactivate_button()
             E_monnaie=Entry(self.root)
@@ -291,6 +292,7 @@ class BlackJack:
             self.bet=int(valeur.get())
             self.L_Mis_en_jeu['text']=f"Argent en jeu: ${self.bet}"
             self.activate_button()
+            return
         self.Carte_J.append(self.paquet1.getCarteAt(self.indice_J))
         self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
         self.indice_J=self.indice_J+1
