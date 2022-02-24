@@ -1,7 +1,7 @@
-from carte import *
-from tkinter import *
-from PIL import Image, ImageTk
 import os
+from tkinter import Label, Tk, Button, RAISED
+from PIL import Image, ImageTk
+from carte import Carte, PaquetDeCarte
 coeur={1:"Carte\\ace_of_hearts.png",
        2:"Carte\\2_of_hearts.png",
        3:"Carte\\3_of_hearts.png",
@@ -59,7 +59,7 @@ card=Carte(1, 1)
 n_card=0
 def add_image_J():
     global card, n_card, dico_carte, coeur, trefle, carreau, pique
-    image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[card.getCouleur()][card.Valeur]))
+    image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), dico_carte[card.get_couleur][card.valeur]))
     size=image.size
     resize_image = image.resize((size[0]//4, size[1]//4))
     img = ImageTk.PhotoImage(resize_image)
@@ -80,28 +80,37 @@ while rows < 50:
     rows += 1
 def disable():
     for widgets in root.winfo_children():
-        if type(widgets)==Button:
+        if isinstance(widgets, Button):
             widgets['state']='disabled'
-L_Dealer = Label(root, text="Dealer", font="Arial 17 bold").grid(row=2, column =24)
-L_Joueur= Label(root, text=Username, font="Arial 17 bold").grid(row=28, column=24)
-L_Total_D=Label(root, text="Total du Dealer: ",font="Arial 12 bold").grid(row=2, column=26)
-L_Total_J=Label(root, text="Total du Joueur: ",font="Arial 12 bold").grid(row=28, column=26)
-L_Mis_en_jeu=Label(root, text="Argent en jeu:", font="Arial 12 bold").grid(row=28, column=2)
-L_Argent_J=Label(root, text="Argent gagné/perdu par le Joueur: ", font="Arial 12 bold").grid(row=29, column=2)
-L_Argent_D=Label(root, text="Argent gagné/perdu par le dealer: ", font="Arial 12 bold").grid(row=2, column=2)
-Pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=add_image_J).grid(row=48, column=24)
-Arret_P=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=disable).grid(row=48, column =23)
-Sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy).grid(row=48, column=48)
+L_Dealer = Label(root,
+                 text="Dealer",
+                 font="Arial 17 bold").grid(row=2,
+                                            column =24)
+l_joueur= Label(root, text=Username, font="Arial 17 bold")
+l_joueur.grid(row=28, column=24)
+l_total_d=Label(root, text="Total du Dealer: ",font="Arial 12 bold")
+l_total_d.grid(row=2, column=26)
+l_total_j=Label(root, text="Total du Joueur: ",font="Arial 12 bold")
+l_total_j.grid(row=28, column=26)
+l_mis_en_jeu=Label(root, text="Argent en jeu:", font="Arial 12 bold")
+l_mis_en_jeu.grid(row=28, column=2)
+l_argent_j=Label(root, text="Argent gagné/perdu par le Joueur: ", font="Arial 12 bold")
+l_argent_j.grid(row=29, column=2)
+l_argent_d=Label(root, text="Argent gagné/perdu par le dealer: ", font="Arial 12 bold")
+l_argent_d.grid(row=2, column=2)
+pioche = Button(root, text="Pioche", font="Arial 13 bold", relief=RAISED, command=add_image_J)
+pioche.grid(row=48, column=24)
+arret_p=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, command=disable)
+arret_p.grid(row=48, column =23)
+sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy)
+sortir.grid(row=48, column=48)
 def disable():
     for widgets in root.winfo_children():
         if type(widgets)==Button:
             widgets['state']='disabled'
 root.mainloop()
 
-
-"""
-
-# Read the Image
+"""# Read the Image
 image = Image.open( "Carte\\2_of_clubs.png")
 size=image.size
 # Resize the image using resize() method

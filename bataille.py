@@ -73,10 +73,9 @@ class Bataille:
                 if len(self.jeu1.contenu)==len(self.jeu2.contenu):
                     print("Egalité!")
                     return
-                else:
-                    print(f"""Joueur Numero 1 a gagné! avec {len(self.jeu1.contenu)} cartes restantes!\n
-                              Le joueur numero 2 avait {len(self.jeu2.contenu)} cartes restantes!""")
-                    return
+                print(f"""Joueur Numero 1 a gagné! avec {len(self.jeu1.contenu)} cartes restantes!\n
+                            Le joueur numero 2 avait {len(self.jeu2.contenu)} cartes restantes!""")
+                return
         if len(self.jeu2.contenu)==0:
             print("Joueur Numero 1 a gagné!", tour)
         else:
