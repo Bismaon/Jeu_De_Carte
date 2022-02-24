@@ -3,6 +3,7 @@ class Carte:
         - d'instancier une carte
         - de renvoyer son nom/couleur de carte
         - de renvoyer sa valeur de carte"""
+
     def __init__(self, couleur, valeur):
         """Counstructeur de la classe Carte qui permet de\n
         donner une couleur et une valeur a une carte
@@ -11,20 +12,20 @@ class Carte:
             valeur (int): de 1 a 13"""
         self.couleur = couleur
         self.valeur = valeur
+
     def get_nom(self):
         """Renvoie le nom de la carte
         Returns:
             - String: nom de la carte"""
-        if ( self.valeur > 1 and self.valeur < 11):
+        if 1 < self.valeur < 11:
             return str( self.valeur)
-        elif self.valeur == 11:
+        if self.valeur == 11:
             return "Valet"
-        elif self.valeur == 12:
+        if self.valeur == 12:
             return "Dame"
-        elif self.valeur == 13:
+        if self.valeur == 13:
             return "Roi"
-        else:
-            return "As"
+        return "As"
 
     def get_couleur(self):
         """Renvoie la couleur de la carte
