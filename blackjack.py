@@ -1,14 +1,14 @@
 from tkinter import Tk, Button, Label, RAISED, Frame, Toplevel, Entry, IntVar
-from PIL import Image, ImageTk
 import os
 from random import shuffle
+from PIL import Image, ImageTk
 from carte import Carte, PaquetDeCarte
 class BlackJack:
     """Cette class, BlackJack, permet de jouer au blackjack à l'aide d'un visuel, Tkinter.
         Elle permet de piocher des cartes, de jouer contre "l'ordinateur", de miser de l'argent,
         de l'argent fictif. Elle permet aussi d'avoir un username, un nom pour le joueur entrer par
-        le joueur. Cette classe garde la trace de l'argent gagné à travers le jeu. On peut cliquer sur
-        "Regle" pour avoir un pop up montrant les règles, un bouton pour reinitialiser le jeu."""
+        le joueur. Cette classe garde la trace de l'argent gagné à travers le jeu. On peut cliquer
+    sur "Regle" pour avoir un pop up montrant les règles, un bouton pour reinitialiser le jeu."""
 
     def __init__(self, paquet_j, paquet_d):
         self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png",
