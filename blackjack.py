@@ -327,7 +327,7 @@ class BlackJack:
             self.egaliter()
 
     def valeur_de_carte_j(self, card_value):
-        if card_value>10 and card_value <14:
+        if 10 < card_value <14:
             return 10
         elif card_value==1:
             self.deactivate_button()
