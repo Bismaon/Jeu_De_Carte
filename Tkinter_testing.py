@@ -2,57 +2,57 @@ from carte import *
 from tkinter import *
 from PIL import Image, ImageTk
 import os
-coeur={1:"Carte\\ace_of_hearts.png", 
-       2:"Carte\\2_of_hearts.png", 
-       3:"Carte\\3_of_hearts.png", 
-       4:"Carte\\4_of_hearts.png", 
-       5:"Carte\\5_of_hearts.png", 
-       6:"Carte\\6_of_hearts.png", 
-       7:"Carte\\7_of_hearts.png", 
-       8:"Carte\\8_of_hearts.png", 
-       9:"Carte\\9_of_hearts.png", 
-       10:"Carte\\10_of_hearts.png", 
-       11:"Carte\\jack_of_hearts2.png", 
-       12:"Carte\\queen_of_hearts2.png", 
+coeur={1:"Carte\\ace_of_hearts.png",
+       2:"Carte\\2_of_hearts.png",
+       3:"Carte\\3_of_hearts.png",
+       4:"Carte\\4_of_hearts.png",
+       5:"Carte\\5_of_hearts.png",
+       6:"Carte\\6_of_hearts.png",
+       7:"Carte\\7_of_hearts.png",
+       8:"Carte\\8_of_hearts.png",
+       9:"Carte\\9_of_hearts.png",
+       10:"Carte\\10_of_hearts.png",
+       11:"Carte\\jack_of_hearts2.png",
+       12:"Carte\\queen_of_hearts2.png",
        13:"Carte\\king_of_hearts2.png"}
-trefle={1:"Carte\\ace_of_clubs.png", 
-       2:"Carte\\2_of_clubs.png", 
-       3:"Carte\\3_of_clubs.png", 
-       4:"Carte\\4_of_clubs.png", 
-       5:"Carte\\5_of_clubs.png", 
-       6:"Carte\\6_of_clubs.png", 
-       7:"Carte\\7_of_clubs.png", 
-       8:"Carte\\8_of_clubs.png", 
-       9:"Carte\\9_of_clubs.png", 
-       10:"Carte\\10_of_clubs.png", 
-       11:"Carte\\jack_of_clubs2.png", 
-       12:"Carte\\queen_of_clubs2.png", 
+trefle={1:"Carte\\ace_of_clubs.png",
+       2:"Carte\\2_of_clubs.png",
+       3:"Carte\\3_of_clubs.png",
+       4:"Carte\\4_of_clubs.png",
+       5:"Carte\\5_of_clubs.png",
+       6:"Carte\\6_of_clubs.png",
+       7:"Carte\\7_of_clubs.png",
+       8:"Carte\\8_of_clubs.png",
+       9:"Carte\\9_of_clubs.png",
+       10:"Carte\\10_of_clubs.png",
+       11:"Carte\\jack_of_clubs2.png",
+       12:"Carte\\queen_of_clubs2.png",
        13:"Carte\\king_of_clubs2.png"}
-carreau={1:"Carte\\ace_of_diamonds.png", 
-       2:"Carte\\2_of_diamonds.png", 
-       3:"Carte\\3_of_diamonds.png", 
-       4:"Carte\\4_of_diamonds.png", 
-       5:"Carte\\5_of_diamonds.png", 
-       6:"Carte\\6_of_diamonds.png", 
-       7:"Carte\\7_of_diamonds.png", 
-       8:"Carte\\8_of_diamonds.png", 
-       9:"Carte\\9_of_diamonds.png", 
-       10:"Carte\\10_of_diamonds.png", 
-       11:"Carte\\jack_of_diamonds2.png", 
-       12:"Carte\\queen_of_diamonds2.png", 
+carreau={1:"Carte\\ace_of_diamonds.png",
+       2:"Carte\\2_of_diamonds.png",
+       3:"Carte\\3_of_diamonds.png",
+       4:"Carte\\4_of_diamonds.png",
+       5:"Carte\\5_of_diamonds.png",
+       6:"Carte\\6_of_diamonds.png",
+       7:"Carte\\7_of_diamonds.png",
+       8:"Carte\\8_of_diamonds.png",
+       9:"Carte\\9_of_diamonds.png",
+       10:"Carte\\10_of_diamonds.png",
+       11:"Carte\\jack_of_diamonds2.png",
+       12:"Carte\\queen_of_diamonds2.png",
        13:"Carte\\king_of_diamonds2.png"}
-pique={1:"Carte\\ace_of_spades.png", 
-       2:"Carte\\2_of_spades.png", 
-       3:"Carte\\3_of_spades.png", 
-       4:"Carte\\4_of_spades.png", 
-       5:"Carte\\5_of_spades.png", 
-       6:"Carte\\6_of_spades.png", 
-       7:"Carte\\7_of_spades.png", 
-       8:"Carte\\8_of_spades.png", 
-       9:"Carte\\9_of_spades.png", 
-       10:"Carte\\10_of_spades.png", 
-       11:"Carte\\jack_of_spades2.png", 
-       12:"Carte\\queen_of_spades2.png", 
+pique={1:"Carte\\ace_of_spades.png",
+       2:"Carte\\2_of_spades.png",
+       3:"Carte\\3_of_spades.png",
+       4:"Carte\\4_of_spades.png",
+       5:"Carte\\5_of_spades.png",
+       6:"Carte\\6_of_spades.png",
+       7:"Carte\\7_of_spades.png",
+       8:"Carte\\8_of_spades.png",
+       9:"Carte\\9_of_spades.png",
+       10:"Carte\\10_of_spades.png",
+       11:"Carte\\jack_of_spades2.png",
+       12:"Carte\\queen_of_spades2.png",
        13:"Carte\\king_of_spades2.png"}
 dico_carte={"coeur":coeur, "trefle":trefle, "carreau":carreau, "pique":pique}
 card=Carte(1, 1)
@@ -97,7 +97,7 @@ def disable():
         if type(widgets)==Button:
             widgets['state']='disabled'
 root.mainloop()
-        
+
 
 """
 
@@ -106,9 +106,9 @@ image = Image.open( "Carte\\2_of_clubs.png")
 size=image.size
 # Resize the image using resize() method
 resize_image = image.resize((size[0]//3, size[1]//3))
- 
+
 img = ImageTk.PhotoImage(resize_image)
- 
+
 # create label and add resize image
 label1 = Label(image=img)
 label1.image = img
