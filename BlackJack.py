@@ -5,57 +5,57 @@ from PIL import Image, ImageTk
 import os
 class BlackJack:
     def __init__(self, paquetA, paquetB):
-        self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png", 
-                    2:"Carte\\2_of_hearts.png", 
-                    3:"Carte\\3_of_hearts.png", 
-                    4:"Carte\\4_of_hearts.png", 
-                    5:"Carte\\5_of_hearts.png", 
-                    6:"Carte\\6_of_hearts.png", 
-                    7:"Carte\\7_of_hearts.png", 
-                    8:"Carte\\8_of_hearts.png", 
-                    9:"Carte\\9_of_hearts.png", 
-                    10:"Carte\\10_of_hearts.png", 
-                    11:"Carte\\jack_of_hearts2.png", 
-                    12:"Carte\\queen_of_hearts2.png", 
-                    13:"Carte\\king_of_hearts2.png"}, 
-            "trefle":{1:"Carte\\ace_of_clubs.png", 
-                    2:"Carte\\2_of_clubs.png", 
-                    3:"Carte\\3_of_clubs.png", 
-                    4:"Carte\\4_of_clubs.png", 
-                    5:"Carte\\5_of_clubs.png", 
-                    6:"Carte\\6_of_clubs.png", 
-                    7:"Carte\\7_of_clubs.png", 
-                    8:"Carte\\8_of_clubs.png", 
-                    9:"Carte\\9_of_clubs.png", 
-                    10:"Carte\\10_of_clubs.png", 
-                    11:"Carte\\jack_of_clubs2.png", 
-                    12:"Carte\\queen_of_clubs2.png", 
-                    13:"Carte\\king_of_clubs2.png"}, 
-            "carreau":{1:"Carte\\ace_of_diamonds.png", 
-                    2:"Carte\\2_of_diamonds.png", 
-                    3:"Carte\\3_of_diamonds.png", 
-                    4:"Carte\\4_of_diamonds.png", 
-                    5:"Carte\\5_of_diamonds.png", 
-                    6:"Carte\\6_of_diamonds.png", 
-                    7:"Carte\\7_of_diamonds.png", 
-                    8:"Carte\\8_of_diamonds.png", 
-                    9:"Carte\\9_of_diamonds.png", 
-                    10:"Carte\\10_of_diamonds.png", 
-                    11:"Carte\\jack_of_diamonds2.png", 
-                    12:"Carte\\queen_of_diamonds2.png", 
+        self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png",
+                    2:"Carte\\2_of_hearts.png",
+                    3:"Carte\\3_of_hearts.png",
+                    4:"Carte\\4_of_hearts.png",
+                    5:"Carte\\5_of_hearts.png",
+                    6:"Carte\\6_of_hearts.png",
+                    7:"Carte\\7_of_hearts.png",
+                    8:"Carte\\8_of_hearts.png",
+                    9:"Carte\\9_of_hearts.png",
+                    10:"Carte\\10_of_hearts.png",
+                    11:"Carte\\jack_of_hearts2.png",
+                    12:"Carte\\queen_of_hearts2.png",
+                    13:"Carte\\king_of_hearts2.png"},
+            "trefle":{1:"Carte\\ace_of_clubs.png",
+                    2:"Carte\\2_of_clubs.png",
+                    3:"Carte\\3_of_clubs.png",
+                    4:"Carte\\4_of_clubs.png",
+                    5:"Carte\\5_of_clubs.png",
+                    6:"Carte\\6_of_clubs.png",
+                    7:"Carte\\7_of_clubs.png",
+                    8:"Carte\\8_of_clubs.png",
+                    9:"Carte\\9_of_clubs.png",
+                    10:"Carte\\10_of_clubs.png",
+                    11:"Carte\\jack_of_clubs2.png",
+                    12:"Carte\\queen_of_clubs2.png",
+                    13:"Carte\\king_of_clubs2.png"},
+            "carreau":{1:"Carte\\ace_of_diamonds.png",
+                    2:"Carte\\2_of_diamonds.png",
+                    3:"Carte\\3_of_diamonds.png",
+                    4:"Carte\\4_of_diamonds.png",
+                    5:"Carte\\5_of_diamonds.png",
+                    6:"Carte\\6_of_diamonds.png",
+                    7:"Carte\\7_of_diamonds.png",
+                    8:"Carte\\8_of_diamonds.png",
+                    9:"Carte\\9_of_diamonds.png",
+                    10:"Carte\\10_of_diamonds.png",
+                    11:"Carte\\jack_of_diamonds2.png",
+                    12:"Carte\\queen_of_diamonds2.png",
                     13:"Carte\\king_of_diamonds2.png"},
-            "pique":{1:"Carte\\ace_of_spades.png", 
-                    2:"Carte\\2_of_spades.png", 
-                    3:"Carte\\3_of_spades.png", 
-                    4:"Carte\\4_of_spades.png", 
-                    5:"Carte\\5_of_spades.png", 
-                    6:"Carte\\6_of_spades.png", 
-                    7:"Carte\\7_of_spades.png", 
-                    8:"Carte\\8_of_spades.png", 
-                    9:"Carte\\9_of_spades.png", 
-                    10:"Carte\\10_of_spades.png", 
-                    11:"Carte\\jack_of_spades2.png", 
-                    12:"Carte\\queen_of_spades2.png", 
+            "pique":{1:"Carte\\ace_of_spades.png",
+                    2:"Carte\\2_of_spades.png",
+                    3:"Carte\\3_of_spades.png",
+                    4:"Carte\\4_of_spades.png",
+                    5:"Carte\\5_of_spades.png",
+                    6:"Carte\\6_of_spades.png",
+                    7:"Carte\\7_of_spades.png",
+                    8:"Carte\\8_of_spades.png",
+                    9:"Carte\\9_of_spades.png",
+                    10:"Carte\\10_of_spades.png",
+                    11:"Carte\\jack_of_spades2.png",
+                    12:"Carte\\queen_of_spades2.png",
                     13:"Carte\\king_of_spades2.png"}}
         self.min_font:str="Arial 12 bold"
         self.max_font:str="Arial 17 bold"
@@ -78,19 +78,19 @@ class BlackJack:
         self.root.title("BlackJack")
         self.root.attributes("-fullscreen", True)
         self.root.configure(bg='#f0f0c8')
-        self.B_regle:Button=Button(self.root, 
-                                   font=self.min_font, 
-                                   text='Regle', 
+        self.B_regle:Button=Button(self.root,
+                                   font=self.min_font,
+                                   text='Regle',
                                    command=self.reglement)
-        self.L_Dealer:Label = Label(self.root, 
-                              text="Dealer", 
+        self.L_Dealer:Label = Label(self.root,
+                              text="Dealer",
                               font=self.max_font,
                                 bg="#f0f0c8")
-        self.L_Joueur = Label(self.root, 
-                              text=self.username, 
+        self.L_Joueur = Label(self.root,
+                              text=self.username,
                               font=self.max_font,
                                 bg="#f0f0c8")
-        self.L_total_D = Label(self.root, 
+        self.L_total_D = Label(self.root,
                                text=f"Total du Dealer: {self.total_D}",
                                font=self.min_font,
                                bg="#f0f0c8")
@@ -98,103 +98,103 @@ class BlackJack:
                                text=f"Total: {self.total_J}",
                                font=self.min_font,
                                bg="#f0f0c8")
-        self.L_Mis_en_jeu = Label(self.root, 
-                                  text=f"Argent en jeu: ${self.bet}", 
+        self.L_Mis_en_jeu = Label(self.root,
+                                  text=f"Argent en jeu: ${self.bet}",
                                   font=self.min_font,
                                   bg="#f0f0c8")
-        self.L_Argent_J = Label(self.root, 
-                                text=f"Argent gagné/perdu par le Joueur: ${self.monnaie}", 
+        self.L_Argent_J = Label(self.root,
+                                text=f"Argent gagné/perdu par le Joueur: ${self.monnaie}",
                                 font=self.min_font,
                                 bg="#f0f0c8")
-        self.Pioche = Button(self.root, 
-                             text="Pioche", 
-                             font=self.min_font, 
-                             relief=RAISED, 
-                             command=self.piocher)
-        self.Arret_P = Button(self.root, 
-                              text="Terminé", 
-                              font =self.min_font, 
-                              relief =RAISED, 
-                              command=self.dealer_stuff)
-        self.Sortir = Button(self.root, 
-                             text="Exit", 
+        self.Pioche = Button(self.root,
+                             text="Pioche",
                              font=self.min_font,
-                             relief=RAISED, 
+                             relief=RAISED,
+                             command=self.piocher)
+        self.Arret_P = Button(self.root,
+                              text="Terminé",
+                              font =self.min_font,
+                              relief =RAISED,
+                              command=self.dealer_stuff)
+        self.Sortir = Button(self.root,
+                             text="Exit",
+                             font=self.min_font,
+                             relief=RAISED,
                              command=self.root.destroy)
-        self.reset = Button(self.root, 
-                            text="Reset", 
-                            font=self.min_font, 
-                            relief=RAISED, 
+        self.reset = Button(self.root,
+                            text="Reset",
+                            font=self.min_font,
+                            relief=RAISED,
                             command=self.reinit)
-        self.frame_J =Frame(self.root, 
-                            width=700, 
+        self.frame_J =Frame(self.root,
+                            width=700,
                             height=250,
                             bg="#35654d")
-        self.frame_D =Frame(self.root, 
-                            width=700, 
+        self.frame_D =Frame(self.root,
+                            width=700,
                             height=250,
                             bg="#35654d")
-        
+
         self.mis_en_place_des_widgets()
         self.root.mainloop()
-        
+
     def mis_en_place_des_widgets(self):
         while self.rows < 50:
-            self.root.rowconfigure(self.rows, 
+            self.root.rowconfigure(self.rows,
                                    weight=1)
             self.root.columnconfigure(self.rows,
                                       weight=1)
             self.rows += 1
-        
-        self.frame_J.grid(row=25, 
-                          column=14, 
+
+        self.frame_J.grid(row=25,
+                          column=14,
                           columnspan=20,
                           rowspan=19)
-        self.frame_D.grid(row=3, 
-                          column=14, 
+        self.frame_D.grid(row=3,
+                          column=14,
                           columnspan=20,
                           rowspan=19)
-        self.L_Dealer.grid(row=2, 
+        self.L_Dealer.grid(row=2,
                            column =24)
-        self.L_total_D.grid(row=2, 
+        self.L_total_D.grid(row=2,
                             column=26)
-        self.L_Joueur.grid(row=24, 
+        self.L_Joueur.grid(row=24,
                            column=24)
-        self.L_total_J.grid(row=24, 
+        self.L_total_J.grid(row=24,
                             column=26)
-        self.L_Mis_en_jeu.grid(row=24, 
+        self.L_Mis_en_jeu.grid(row=24,
                                column=2)
-        self.L_Argent_J.grid(row=25, 
+        self.L_Argent_J.grid(row=25,
                              column=2)
-        self.Pioche.grid(row=48, 
+        self.Pioche.grid(row=48,
                          column=25)
-        
-        self.Arret_P.grid(row=48, 
+
+        self.Arret_P.grid(row=48,
                           column =24)
-        self.Sortir.grid(row=48, 
+        self.Sortir.grid(row=48,
                          column=48)
-        self.reset.grid(row=48, 
+        self.reset.grid(row=48,
                         column=46)
-        self.B_regle.grid(row=48, 
+        self.B_regle.grid(row=48,
                           column=44)
-        self.root.bind("<p>", 
+        self.root.bind("<p>",
                        self.piocher)
-        self.root.bind("<t>", 
+        self.root.bind("<t>",
                        self.dealer_stuff)
-        self.root.bind("<r>", 
+        self.root.bind("<r>",
                        self.reinit)
-        self.root.bind("<R>", 
+        self.root.bind("<R>",
                        self.reglement)
 
     def reglement(self, event=None):
         self.deactivate_button()
         pop_up=Toplevel(self.root)
         regle=Label(pop_up,
-                    font='Arial 12', 
+                    font='Arial 12',
                     justify='left',
                     text="Le but du blackjack est de battre le dealer. Pour le battre il faut arriver à etre le plus proche de 21 sans avoir plus.\nSi le dealer a moins que vous ou dépasse 21 vous gagnez. Si le dealer a plus que vous et moins de 21, il gagne.")
         regle.pack()
-        regle2=Label(pop_up, 
+        regle2=Label(pop_up,
                      font=self.min_font,
                      justify='left',
                      text="RAPPEL:\n-   Un As peut valoir 1, 10, ou 11\n-   Le roi, la reine, et le valet vallent 10")
@@ -205,9 +205,9 @@ class BlackJack:
                       command=lambda:[(pop_up.destroy(), self.activate_button())])
         B_exit.pack()
         pop_up.mainloop()
-    
+
     def add_image_D(self):
-        image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+        image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                         self.dico_carte[self.Carte_D[-1].get_couleur()][self.Carte_D[-1].valeur]))
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
@@ -217,9 +217,9 @@ class BlackJack:
                       bg="#35654d")
         img_lab.image = img # keep a reference!
         img_lab.place(x=50+50*(len(self.Carte_D)-1), y=50)
-    
+
     def add_image_J(self):
-        image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+        image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                         self.dico_carte[
             self.Carte_J[-1].get_couleur()][self.Carte_J[-1].valeur]))
         size=image.size
@@ -230,7 +230,7 @@ class BlackJack:
                       bg="#35654d")
         img_lab.image = img # keep a reference!
         img_lab.place(x=50+50*(len(self.Carte_J)-1), y=50)
-        
+
     def reinit(self, event=None):
         if not self.keep:
             self.monnaie='0'
@@ -254,7 +254,7 @@ class BlackJack:
         self.indice_D=0
         self.Carte_J=[]
         self.Carte_D=[]
-        
+
     def piocher(self, event=None):
         if self.username=="":
             self.deactivate_button()
@@ -267,23 +267,23 @@ class BlackJack:
                            column=2)
             E_monnaie.focus_set()
             valeur=IntVar()
-            answer_monnaie=Label(self.root, 
+            answer_monnaie=Label(self.root,
                                  text='',
                                  bg="#f0f0c8")
-            answer_monnaie.grid(row=30, 
+            answer_monnaie.grid(row=30,
                                 column=2)
             def get_value(event=None):
                 if (E_monnaie.get() is str) or (not int(E_monnaie.get())>0):
                     answer_monnaie.config(text="Le bet doit etre superieur à 0")
                 else:
                     valeur.set(int(E_monnaie.get()))
-            B_nb=Button(self.root, 
-                        text="Valeur du bet: ", 
-                        command=get_value, 
-                        font=self.min_font, 
+            B_nb=Button(self.root,
+                        text="Valeur du bet: ",
+                        command=get_value,
+                        font=self.min_font,
                         relief=RAISED)
             self.root.bind('<Return>',get_value)
-            B_nb.grid(row=28, 
+            B_nb.grid(row=28,
                       column=2)
             self.root.wait_variable(valeur)
             B_nb.destroy()
@@ -301,11 +301,11 @@ class BlackJack:
         if self.total_J>21:
             self.deactivate_button()
             self.perdre()
-                
+
     def dealer_stuff(self, event=None):
         while self.total_D<self.total_J and self.total_D<22:
             self.Carte_D.append(self.paquet2.get_carte_at(self.indice_D))
-            self.total_D=self.total_D+int(self.valeur_de_carte_D(self.Carte_D[-1].valeur, 
+            self.total_D=self.total_D+int(self.valeur_de_carte_D(self.Carte_D[-1].valeur,
                                                                  self.total_D))
             self.indice_D=self.indice_D+1
             self.L_total_D["text"]=f"Total du Dealer: {self.total_D}"
@@ -319,33 +319,33 @@ class BlackJack:
         else:
             self.deactivate_button()
             self.egaliter()
-    
+
     def valeur_de_carte_J(self,card_value):
         if card_value>10 and card_value <14:
             return 10
         elif card_value==1:
             self.deactivate_button()
             nb=Entry(self.root)
-            nb.grid(row=26, 
+            nb.grid(row=26,
                     column=2)
             nb.focus_set()
             valeur=IntVar()
-            answer_nb=Label(self.root, 
+            answer_nb=Label(self.root,
                             text='',
                             bg="#f0f0c8")
-            answer_nb.grid(row=30, 
+            answer_nb.grid(row=30,
                            column=2)
             def get_value(event=None):
                 if (nb.get() is str) or (not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11)):
                     answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
                 else:
                     valeur.set(int(nb.get()))
-            B_nb=Button(self.root, 
-                        text="Valeur de l'As (1, 10, 11): ", 
-                        command=get_value, 
-                        font=self.min_font, 
+            B_nb=Button(self.root,
+                        text="Valeur de l'As (1, 10, 11): ",
+                        command=get_value,
+                        font=self.min_font,
                         relief=RAISED)
-            B_nb.grid(row=28, 
+            B_nb.grid(row=28,
                        column=2)
             self.root.bind('<Return>',get_value)
             self.root.wait_variable(valeur)
@@ -356,7 +356,7 @@ class BlackJack:
             return valeur.get()
         else:
             return card_value
-    
+
     def valeur_de_carte_D(self, valeur, total):
         if valeur>10 and valeur <14:
             return 10
@@ -369,7 +369,7 @@ class BlackJack:
                 return 11
         else:
             return valeur
-         
+
     def perdre(self):
         self.monnaie=str(int(self.monnaie)-self.bet)
         self.L_Argent_J['text']=f"Argent gagné/perdu par le Joueur: ${self.monnaie}"
@@ -380,16 +380,16 @@ class BlackJack:
                      font=self.min_font,
                      text="Vous avez perdu ${}!".format(self.bet))
         L_perd.pack()
-        B_exit=Button(pop_up, 
-                             text="Exit", 
+        B_exit=Button(pop_up,
+                             text="Exit",
                              font=self.min_font,
-                             relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), 
-                                              self.reinit(), 
+                             relief=RAISED,
+                             command=lambda: [pop_up.destroy(),
+                                              self.reinit(),
                                               self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
-        
+
     def gagner(self):
         self.monnaie=str(int(self.monnaie)+self.bet)
         self.L_Argent_J['text']=f"Argent gagné/perdu par le Joueur: ${self.monnaie}"
@@ -400,12 +400,12 @@ class BlackJack:
                      font=self.min_font,
                      text="Vous avez gagné ${}!".format(self.bet))
         L_gag.pack()
-        B_exit=Button(pop_up, 
-                             text="Exit", 
+        B_exit=Button(pop_up,
+                             text="Exit",
                              font=self.min_font,
-                             relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), 
-                                              self.reinit(), 
+                             relief=RAISED,
+                             command=lambda: [pop_up.destroy(),
+                                              self.reinit(),
                                               self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
@@ -413,23 +413,23 @@ class BlackJack:
     def egaliter(self):
         self.keep=True
         pop_up=Toplevel(self.root)
-        pop_up.geometry('250x100')   
+        pop_up.geometry('250x100')
         L_egal=Label(pop_up,
                      font=self.min_font,
                      text="Vous etes à ex-aequo!")
         L_egal.pack()
-        B_exit=Button(pop_up, 
-                             text="Exit", 
+        B_exit=Button(pop_up,
+                             text="Exit",
                              font=self.min_font,
-                             relief=RAISED, 
-                             command=lambda: [pop_up.destroy(), 
-                                              self.reinit(), 
+                             relief=RAISED,
+                             command=lambda: [pop_up.destroy(),
+                                              self.reinit(),
                                               self.activate_button()])
         B_exit.pack()
         pop_up.mainloop()
-    
+
     def set_username(self):
-        T_username= Toplevel(self.root) 
+        T_username= Toplevel(self.root)
         T_username.geometry('250x100')
         L_username=Label(T_username,
                          font=self.min_font,
@@ -438,33 +438,33 @@ class BlackJack:
         E_username=Entry(T_username,
                          font=self.min_font)
         E_username.pack()
-        
+
         def init_username(event=None):
             self.username=str(E_username.get())
             self.L_Joueur["text"]=self.username
         B_exit=Button(T_username,
                       text="Accepter",
                       font=self.min_font,
-                      relief=RAISED, 
+                      relief=RAISED,
                       command=lambda:[(init_username(),
-                                       T_username.destroy(), 
+                                       T_username.destroy(),
                                        self.activate_button())])
         B_exit.pack()
         T_username.mainloop()
-        
+
     def activate_button(self, event=None):
         for widgets in self.root.winfo_children():
             if type(widgets)==Button:
                 widgets['state']='normal'
-        self.root.bind("<p>", 
+        self.root.bind("<p>",
                        self.piocher)
-        self.root.bind("<t>", 
+        self.root.bind("<t>",
                        self.dealer_stuff)
-        self.root.bind("<r>", 
+        self.root.bind("<r>",
                        self.reinit)
-        self.root.bind("<R>", 
+        self.root.bind("<R>",
                        self.reglement)
-    
+
     def deactivate_button(self, event=None):
         for widgets in self.root.winfo_children():
             if type(widgets)==Button:

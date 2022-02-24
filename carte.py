@@ -3,7 +3,6 @@ class Carte:
         - d'instancier une carte
         - de renvoyer son nom/couleur de carte
         - de renvoyer sa valeur de carte"""
-
     def __init__(self, couleur, valeur):
         """Counstructeur de la classe Carte qui permet de\n
         donner une couleur et une valeur a une carte
@@ -12,7 +11,6 @@ class Carte:
             valeur (int): de 1 a 13"""
         self.couleur = couleur
         self.valeur = valeur
-
     def get_nom(self):
         """Renvoie le nom de la carte
         Returns:
@@ -37,7 +35,7 @@ class Carte:
 class PaquetDeCarte:
     """La class PaquetDeCarte est une classe qui permet:
         - d'initialiser un paquet de carte
-        - de remplir un paquet de carte 
+        - de remplir un paquet de carte
         - de trouver une carte a une positon I dans le paquet de carte"""
 
     def __init__(self):

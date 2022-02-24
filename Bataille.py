@@ -8,7 +8,7 @@ class Bataille:
     def __init__(self, paquet1:list, paquet2:list):
         self.jeu1=paquet1
         self.jeu2=paquet2
-    
+
     def bataille(self):
         """Tapez ENTER pour tirer une carte et commencer la bataille.\n
         RAPPEL:\n
