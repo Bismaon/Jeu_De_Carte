@@ -1,6 +1,6 @@
 from carte import Carte, PaquetDeCarte
-from BlackJack import BlackJack
-from Bataille import Bataille
+from blackjack import BlackJack
+from bataille import Bataille
 
 def main():
     paquet_a=PaquetDeCarte()

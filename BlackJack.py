@@ -1,6 +1,6 @@
 from random import shuffle
 from carte import Carte, PaquetDeCarte
-from tkinter import *
+from tkinter import Tk, Button, Label, RAISED, Frame, Toplevel, Entry, IntVar
 from PIL import Image, ImageTk
 import os
 class BlackJack:
