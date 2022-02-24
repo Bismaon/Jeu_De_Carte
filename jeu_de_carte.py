@@ -1,13 +1,13 @@
-from carte import *
-from BlackJack import *
-from Bataille import *
+from carte import Carte, PaquetDeCarte
+from BlackJack import BlackJack
+from Bataille import Bataille
 
 def main():    
-    paquetA=PaquetDeCarte()
-    paquetB=PaquetDeCarte()
-    paquetA.remplir()
-    paquetB.remplir()
-    BlackJack(paquetA, paquetB)
+    paquet_a=PaquetDeCarte()
+    paquet_a=PaquetDeCarte()
+    paquet_a.remplir()
+    paquet_a.remplir()
+    BlackJack(paquet_a, paquet_a)
     
 if __name__=="__main__":
     main()

@@ -1,5 +1,5 @@
 from random import shuffle
-from carte import *
+from carte import Carte, PaquetDeCarte
 from tkinter import *
 from PIL import Image, ImageTk
 import os
@@ -59,8 +59,8 @@ class BlackJack:
                     13:"Carte\\king_of_spades2.png"}}
         self.min_font:str="Arial 12 bold"
         self.max_font:str="Arial 17 bold"
-        self.paquet1:PaquetDeCarte = paquetA
-        self.paquet2:PaquetDeCarte = paquetB
+        self.paquet1:PaquetDeCarte= paquetA
+        self.paquet2:PaquetDeCarte= paquetB
         shuffle(self.paquet1.contenu)
         shuffle(self.paquet2.contenu)
         self.monnaie:str = '0'
@@ -208,7 +208,7 @@ class BlackJack:
     
     def add_image_D(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                                        self.dico_carte[self.Carte_D[-1].getCouleur()][self.Carte_D[-1].Valeur]))
+                                        self.dico_carte[self.Carte_D[-1].get_couleur()][self.Carte_D[-1].valeur]))
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
@@ -221,7 +221,7 @@ class BlackJack:
     def add_image_J(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
                                         self.dico_carte[
-            self.Carte_J[-1].getCouleur()][self.Carte_J[-1].Valeur]))
+            self.Carte_J[-1].get_couleur()][self.Carte_J[-1].valeur]))
         size=image.size
         resize_image = image.resize((size[0]//4, size[1]//4))
         img = ImageTk.PhotoImage(resize_image)
@@ -273,7 +273,7 @@ class BlackJack:
             answer_monnaie.grid(row=30, 
                                 column=2)
             def get_value(event=None):
-                if not int(E_monnaie.get())>0:
+                if (E_monnaie.get() is str) or (not int(E_monnaie.get())>0):
                     answer_monnaie.config(text="Le bet doit etre superieur à 0")
                 else:
                     valeur.set(int(E_monnaie.get()))
@@ -293,8 +293,8 @@ class BlackJack:
             self.L_Mis_en_jeu['text']=f"Argent en jeu: ${self.bet}"
             self.activate_button()
             return
-        self.Carte_J.append(self.paquet1.getCarteAt(self.indice_J))
-        self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].Valeur))
+        self.Carte_J.append(self.paquet1.get_carte_at(self.indice_J))
+        self.total_J=self.total_J+int(self.valeur_de_carte_J(self.Carte_J[-1].valeur))
         self.indice_J=self.indice_J+1
         self.L_total_J["text"]=f"Total: {self.total_J}"
         self.add_image_J()
@@ -304,8 +304,8 @@ class BlackJack:
                 
     def dealer_stuff(self, event=None):
         while self.total_D<self.total_J and self.total_D<22:
-            self.Carte_D.append(self.paquet2.getCarteAt(self.indice_D))
-            self.total_D=self.total_D+int(self.valeur_de_carte_D(self.Carte_D[-1].Valeur, 
+            self.Carte_D.append(self.paquet2.get_carte_at(self.indice_D))
+            self.total_D=self.total_D+int(self.valeur_de_carte_D(self.Carte_D[-1].valeur, 
                                                                  self.total_D))
             self.indice_D=self.indice_D+1
             self.L_total_D["text"]=f"Total du Dealer: {self.total_D}"
@@ -336,7 +336,7 @@ class BlackJack:
             answer_nb.grid(row=30, 
                            column=2)
             def get_value(event=None):
-                if not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11):
+                if (nb.get() is str) or (not (int(nb.get())==10 or int(nb.get())==1 or int(nb.get())==11)):
                     answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
                 else:
                     valeur.set(int(nb.get()))
