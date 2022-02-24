@@ -84,10 +84,6 @@ class BlackJack:
         self.root.title("BlackJack")
         self.root.attributes("-fullscreen", True)
         self.root.configure(bg='#f0f0c8')
-        self.b_regle:Button=Button(self.root,
-                                   font=self.min_font,
-                                   text='Regle',
-                                   command=self.reglement)
         self.l_dealer:Label = Label(self.root,
                               text="Dealer",
                               font=self.max_font,
@@ -132,6 +128,15 @@ class BlackJack:
                             font=self.min_font,
                             relief=RAISED,
                             command=self.reinit)
+        self.b_username= Button(self.root,
+                                text="Changer/ajouter son username",
+                                font=self.min_font,
+                                relief=RAISED,
+                                command=self.set_username)
+        self.b_regle:Button=Button(self.root,
+                                   font=self.min_font,
+                                   text='Regle',
+                                   command=self.reglement)
         self.frame_j =Frame(self.root,
                             width=700,
                             height=250,
@@ -140,7 +145,6 @@ class BlackJack:
                             width=700,
                             height=250,
                             bg="#35654d")
-
         self.mis_en_place_des_widgets()
         self.root.mainloop()
 
@@ -151,7 +155,6 @@ class BlackJack:
             self.root.columnconfigure(self.rows,
                                       weight=1)
             self.rows += 1
-
         self.frame_j.grid(row=25,
                           column=14,
                           columnspan=20,
@@ -174,7 +177,6 @@ class BlackJack:
                              column=2)
         self.pioche.grid(row=48,
                          column=25)
-
         self.arret_p.grid(row=48,
                           column =24)
         self.sortir.grid(row=48,
@@ -183,6 +185,8 @@ class BlackJack:
                         column=46)
         self.b_regle.grid(row=48,
                           column=44)
+        self.b_username.grid(row=48,
+                             column=26)
         self.root.bind("<p>",
                        self.piocher)
         self.root.bind("<t>",
@@ -191,6 +195,8 @@ class BlackJack:
                        self.reinit)
         self.root.bind("<R>",
                        self.reglement)
+        self.root.bind("<u>",
+                       self.set_username)
 
     def reglement(self, event=None):
         self.deactivate_button()
@@ -263,7 +269,6 @@ class BlackJack:
 
     def piocher(self, event=None):
         if self.username=="":
-            self.deactivate_button()
             self.set_username()
             return
         if self.bet == 0:
@@ -271,7 +276,6 @@ class BlackJack:
             e_monnaie=Entry(self.root)
             e_monnaie.grid(row=26,
                            column=2)
-            e_monnaie.focus_set()
             valeur=IntVar()
             answer_monnaie=Label(self.root,
                                  text='',
@@ -279,8 +283,9 @@ class BlackJack:
             answer_monnaie.grid(row=30,
                                 column=2)
             def get_value(event=None):
-                if (int(e_monnaie.get())<=0):
-                    answer_monnaie.config(text="Le bet doit etre superieur à 0")
+                if (not e_monnaie.get().isdigit()) or (int(e_monnaie.get())<=0):
+                    answer_monnaie.config(
+                        text="Le bet doit etre superieur à 0, et ne pas contenir de lettre")
                 else:
                     valeur.set(int(e_monnaie.get()))
             b_valeur=Button(self.root,
@@ -291,6 +296,7 @@ class BlackJack:
             self.root.bind('<Return>',get_value)
             b_valeur.grid(row=28,
                       column=2)
+            e_monnaie.focus_set()
             self.root.wait_variable(valeur)
             b_valeur.destroy()
             answer_monnaie.destroy()
@@ -329,7 +335,7 @@ class BlackJack:
     def valeur_de_carte_j(self, card_value):
         if 10 < card_value <14:
             return 10
-        elif card_value==1:
+        if card_value==1:
             self.deactivate_button()
             warning_valeur=Entry(self.root)
             warning_valeur.grid(row=26,
@@ -362,8 +368,7 @@ class BlackJack:
             warning_valeur.destroy()
             self.activate_button()
             return valeur.get()
-        else:
-            return card_value
+        return card_value
 
     def valeur_de_carte_d(self, valeur, total):
         if 10 < valeur <14:
@@ -382,6 +387,7 @@ class BlackJack:
         self.keep=True
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
+        pop_up.focus_set()
         l_perdu=Label(pop_up,
                      font=self.min_font,
                      text=f"Vous avez perdu ${self.bet}!")
@@ -402,6 +408,7 @@ class BlackJack:
         self.keep=True
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
+        pop_up.focus_set()
         l_gagne=Label(pop_up,
                      font=self.min_font,
                      text=f"Vous avez gagné ${self.bet}!")
@@ -420,6 +427,7 @@ class BlackJack:
         self.keep=True
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
+        pop_up.focus_set()
         l_egalite=Label(pop_up,
                      font=self.min_font,
                      text="Vous etes à ex-aequo!")
@@ -434,20 +442,24 @@ class BlackJack:
         b_exit.pack()
         pop_up.mainloop()
 
-    def set_username(self):
+    def set_username(self, event=None):
+        self.deactivate_button()
         t_username= Toplevel(self.root)
         t_username.geometry('250x100')
+        t_username.focus_set()
         l_username=Label(t_username,
                          font=self.min_font,
                          text="Entrer votre username:")
         l_username.pack()
         e_username=Entry(t_username,
                          font=self.min_font)
+        e_username.focus_set()
         e_username.pack()
-
         def init_username(event=None):
             self.username=str(e_username.get())
             self.l_joueur["text"]=self.username
+            t_username.destroy()
+            self.activate_button()
         b_exit=Button(t_username,
                       text="Accepter",
                       font=self.min_font,
@@ -456,6 +468,7 @@ class BlackJack:
                                        t_username.destroy(),
                                        self.activate_button())])
         b_exit.pack()
+        e_username.bind("<Return>", init_username)
         t_username.mainloop()
 
     def activate_button(self, event=None):
@@ -470,6 +483,8 @@ class BlackJack:
                        self.reinit)
         self.root.bind("<R>",
                        self.reglement)
+        self.root.bind("<u>",
+                       self.set_username)
 
     def deactivate_button(self, event=None):
         for widgets in self.root.winfo_children():
@@ -480,3 +495,4 @@ class BlackJack:
         self.root.unbind("<t>")
         self.root.unbind("<r>")
         self.root.unbind("<R>")
+        self.root.unbind("<u>")
