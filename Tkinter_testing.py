@@ -71,13 +71,13 @@ def add_image_J():
 
 root = Tk()
 root.title("BlackJack")
-Username="Bismaon"
+username="Bismaon"
 root.attributes("-fullscreen", True)
-rows = 0
-while rows < 50:
-    root.rowconfigure(rows, weight=1)
-    root.columnconfigure(rows,weight=1)
-    rows += 1
+ROWS = 0
+while ROWS < 50:
+    root.rowconfigure(ROWS, weight=1)
+    root.columnconfigure(ROWS,weight=1)
+    ROWS += 1
 def disable():
     for widgets in root.winfo_children():
         if isinstance(widgets, Button):
@@ -86,7 +86,7 @@ L_Dealer = Label(root,
                  text="Dealer",
                  font="Arial 17 bold").grid(row=2,
                                             column =24)
-l_joueur= Label(root, text=Username, font="Arial 17 bold")
+l_joueur= Label(root, text=username, font="Arial 17 bold")
 l_joueur.grid(row=28, column=24)
 l_total_d=Label(root, text="Total du Dealer: ",font="Arial 12 bold")
 l_total_d.grid(row=2, column=26)
@@ -104,23 +104,20 @@ arret_p=Button(root, text="Terminé", font ="Arial 12 bold", relief =RAISED, com
 arret_p.grid(row=48, column =23)
 sortir=Button(root, text="Exit", font="Arial 12 bold", relief=RAISED, command=root.destroy)
 sortir.grid(row=48, column=48)
-def disable():
-    for widgets in root.winfo_children():
-        if type(widgets)==Button:
-            widgets['state']='disabled'
+
 root.mainloop()
 
-"""# Read the Image
-image = Image.open( "Carte\\2_of_clubs.png")
-size=image.size
+# Read the Image
+#image = Image.open( "Carte\\2_of_clubs.png")
+#size=image.size
 # Resize the image using resize() method
-resize_image = image.resize((size[0]//3, size[1]//3))
+#resize_image = image.resize((size[0]//3, size[1]//3))
 
-img = ImageTk.PhotoImage(resize_image)
+#img = ImageTk.PhotoImage(resize_image)
 
 # create label and add resize image
-label1 = Label(image=img)
-label1.image = img
-label1.pack()
+#label1 = Label(image=img)
+#label1.image = img
+#label1.pack()
 # Execute Tkinter
-root.mainloop()"""
+#root.mainloop()
