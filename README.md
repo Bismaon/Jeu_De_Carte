@@ -6,4 +6,4 @@ Needed before running:
   - tkinter
   - PIL (pillow)
   - MadFut
-  - ### **_Boom Beach_**
+  - **_Boom Beach_**
