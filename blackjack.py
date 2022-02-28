@@ -11,7 +11,7 @@ class BlackJack:
     sur "Regle" pour avoir un pop up montrant les règles, un bouton pour reinitialiser le jeu."""
 
     def __init__(self, paquet_j, paquet_d):
-        self.dico_carte={"coeur":{1:"Carte\\ace_of_hearts.png",
+        self.dico_carte = {"coeur":{1:"Carte\\ace_of_hearts.png",
                     2:"Carte\\2_of_hearts.png",
                     3:"Carte\\3_of_hearts.png",
                     4:"Carte\\4_of_hearts.png",
@@ -63,28 +63,39 @@ class BlackJack:
                     11:"Carte\\jack_of_spades2.png",
                     12:"Carte\\queen_of_spades2.png",
                     13:"Carte\\king_of_spades2.png"}}
-        self.min_font:str="Arial 12 bold"
-        self.max_font:str="Arial 17 bold"
-        self.paquet1:PaquetDeCarte= paquet_j
-        self.paquet2:PaquetDeCarte= paquet_d
+        self.dico_chip={0:"Carte\\red_chip.png",
+                        1:"Carte\\yellow_chip.png",
+                        2:"Carte\\green_chip.png",
+                        3:"Carte\\blue_chip.png",
+                        4:"Carte\\purple_chip.png"}
+        self.min_font = "Arial 12 bold"
+        self.max_font = "Arial 17 bold"
+        self.min_font_norm = "Arial 12"
+        self.paquet1 = paquet_j
+        self.paquet2 = paquet_d
         shuffle(self.paquet1.contenu)
         shuffle(self.paquet2.contenu)
-        self.monnaie:str = '0'
-        self.rows:int = 0
-        self.keep:bool=False
+        self.monnaie = '0'
+        self.rows = 0
+        self.keep = False
         self.carte_j:list[Carte] = []
         self.carte_d:list[Carte] = []
-        self.indice_j:int = 0
-        self.indice_d:int = 0
-        self.total_j:int = 0
-        self.total_d:int = 0
-        self.bet:int = 0
-        self.username:str = ''
-        self.root:Tk = Tk()
+        self.indice_j = 0
+        self.indice_d = 0
+        self.total_j = 0
+        self.total_d = 0
+        self.bet = 0
+        self.number_chip={5:0,
+                          25:0,
+                          50:0,
+                          100:0,
+                          500:0}
+        self.username = ''
+        self.root = Tk()
         self.root.title("BlackJack")
         self.root.attributes("-fullscreen", True)
         self.root.configure(bg='#f0f0c8')
-        self.l_dealer:Label = Label(self.root,
+        self.l_dealer = Label(self.root,
                               text="Dealer",
                               font=self.max_font,
                                 bg="#f0f0c8")
@@ -128,20 +139,65 @@ class BlackJack:
                             font=self.min_font,
                             relief=RAISED,
                             command=self.reinit)
-        self.b_username= Button(self.root,
+        self.b_username = Button(self.root,
                                 text="Changer/ajouter son username",
                                 font=self.min_font,
                                 relief=RAISED,
                                 command=self.set_username)
-        self.b_regle:Button=Button(self.root,
+        self.b_regle = Button(self.root,
+                            font=self.min_font,
+                            text='Regle',
+                            command=self.reglement)
+        self.b_red_chip = Button(self.root,
+                                 font=self.min_font,
+                                   text="$5",
+                                   relief=RAISED,
+                                   command=lambda:self.put_bet(5),
+                                   bg='#bd0000')
+        self.b_yellow_chip = Button(self.root,
                                    font=self.min_font,
-                                   text='Regle',
-                                   command=self.reglement)
-        self.frame_j =Frame(self.root,
+                                   text="$25",
+                                   relief=RAISED,
+                                   command=lambda:self.put_bet(25),
+                                   bg='#b3a128')
+        self.b_green_chip = Button(self.root,
+                                    font=self.min_font,
+                                   text="$50",
+                                   relief=RAISED,
+                                   command=lambda:self.put_bet(50),
+                                   bg='#92b800')
+        self.b_blue_chip = Button(self.root,
+                                   font=self.min_font,
+                                   text="$100",
+                                   relief=RAISED,
+                                   command=lambda:self.put_bet(100),
+                                   bg='#1390c0')
+        self.b_purple_chip = Button(self.root,
+                                    font=self.min_font,
+                                   text="$500",
+                                   relief=RAISED,
+                                   command=lambda:self.put_bet(500),
+                                   bg='#50177c')
+        self.l_red_chip = Label(self.root,
+                                font=self.min_font,
+                                text=f'{self.number_chip[5]}')
+        self.l_yellow_chip = Label(self.root,
+                                font=self.min_font,
+                                text=f'{self.number_chip[25]}')
+        self.l_green_chip = Label(self.root,
+                                font=self.min_font,
+                                text=f'{self.number_chip[50]}')
+        self.l_blue_chip = Label(self.root,
+                                font=self.min_font,
+                                text=f'{self.number_chip[100]}')
+        self.l_purple_chip = Label(self.root,
+                                font=self.min_font,
+                                text=f'{self.number_chip[500]}')
+        self.frame_j = Frame(self.root,
                             width=700,
                             height=250,
                             bg="#35654d")
-        self.frame_d =Frame(self.root,
+        self.frame_d = Frame(self.root,
                             width=700,
                             height=250,
                             bg="#35654d")
@@ -150,9 +206,9 @@ class BlackJack:
 
     def mis_en_place_des_widgets(self):
         while self.rows < 50:
-            self.root.rowconfigure(self.rows,
+            self.root.grid_rowconfigure(self.rows,
                                    weight=1)
-            self.root.columnconfigure(self.rows,
+            self.root.grid_columnconfigure(self.rows,
                                       weight=1)
             self.rows += 1
         self.frame_j.grid(row=25,
@@ -160,7 +216,7 @@ class BlackJack:
                           columnspan=20,
                           rowspan=19)
         self.frame_d.grid(row=3,
-                          column=14,
+                          column=10,
                           columnspan=20,
                           rowspan=19)
         self.l_dealer.grid(row=2,
@@ -187,6 +243,44 @@ class BlackJack:
                           column=44)
         self.b_username.grid(row=48,
                              column=26)
+        self.b_red_chip.grid(row=9,
+                            column=2)
+        self.b_yellow_chip.grid(row=9,
+                               column=3)
+        self.b_green_chip.grid(row=12,
+                               column=1)
+        self.b_blue_chip.grid(row=12,
+                               column=2)
+        self.b_purple_chip.grid(row=12,
+                               column=3)
+        for i in range(5):
+            image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                            self.dico_chip[i]))
+            size=image.size
+            resize_image = image.resize((size[0]//10, size[1]//10))
+            img = ImageTk.PhotoImage(resize_image)
+            img_lab=Label(self.root,
+                        image=img,
+                        bg="#f0f0c8")
+            img_lab.image = img # keep a reference!
+            if i<2:
+                img_lab.grid(row=8,
+                             column=i+2,
+                             padx=10)
+            else:
+                img_lab.grid(row=11,
+                             column=(i+1)-2,
+                             padx=10)
+        self.l_red_chip.grid(row=7,
+                             column=2)
+        self.l_yellow_chip.grid(row=7,
+                                column=3)
+        self.l_green_chip.grid(row=10,
+                                column=1)
+        self.l_blue_chip.grid(row=10,
+                                column=2)
+        self.l_purple_chip.grid(row=10,
+                                column=3)
         self.root.bind("<p>",
                        self.piocher)
         self.root.bind("<t>",
@@ -217,6 +311,7 @@ class BlackJack:
                       command=lambda:[(pop_up.destroy(), self.activate_button())])
         b_exit.pack()
         pop_up.mainloop()
+        self.activate_button()
 
     def add_image_d(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -229,6 +324,7 @@ class BlackJack:
                       bg="#35654d")
         img_lab.image = img # keep a reference!
         img_lab.place(x=50+50*(len(self.carte_d)-1), y=50)
+
 
     def add_image_j(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -266,44 +362,54 @@ class BlackJack:
         self.indice_d=0
         self.carte_j=[]
         self.carte_d=[]
+        self.number_chip={5:0,
+                          25:0,
+                          50:0,
+                          100:0,
+                          500:0}
+        self.l_red_chip['text']=f'{self.number_chip[5]}'
+        self.l_yellow_chip['text']=f'{self.number_chip[25]}'
+        self.l_green_chip['text']=f'{self.number_chip[50]}'
+        self.l_blue_chip['text']=f'{self.number_chip[100]}'
+        self.l_purple_chip['text']=f'{self.number_chip[500]}'
+        self.activate_button()
 
     def piocher(self, event=None):
         if self.username=="":
             self.set_username()
             return
+        if self.bet!=0:
+            self.stop_bet()
+
         if self.bet == 0:
-            self.deactivate_button()
-            e_monnaie=Entry(self.root)
-            e_monnaie.grid(row=26,
-                           column=2)
-            valeur=IntVar()
-            answer_monnaie=Label(self.root,
-                                 text='',
-                                 bg="#f0f0c8")
-            answer_monnaie.grid(row=30,
-                                column=2)
-            def get_value(event=None):
-                if (not e_monnaie.get().isdigit()) or (int(e_monnaie.get())<=0):
-                    answer_monnaie.config(
-                        text="Le bet doit etre superieur à 0, et ne pas contenir de lettre")
-                else:
-                    valeur.set(int(e_monnaie.get()))
-            b_valeur=Button(self.root,
-                        text="Valeur du bet: ",
-                        command=get_value,
-                        font=self.min_font,
-                        relief=RAISED)
-            self.root.bind('<Return>',get_value)
-            b_valeur.grid(row=28,
-                      column=2)
-            e_monnaie.focus_set()
-            self.root.wait_variable(valeur)
-            b_valeur.destroy()
-            answer_monnaie.destroy()
-            e_monnaie.destroy()
-            self.bet=int(valeur.get())
-            self.l_mis_en_jeu['text']=f"Argent en jeu: ${self.bet}"
-            self.activate_button()
+            pop_up=Toplevel(self.root)
+            pop_up.geometry('300x100')
+            l_warning=Label(pop_up,
+                            text="Veuillez mettre de l'argent en\njeu avant de continuer.",
+                            font=self.min_font_norm)
+            b_exit=Button(pop_up,
+                          text="Exit",
+                          font=self.min_font,
+                          command=pop_up.destroy)
+            l_warning.pack()
+            b_exit.pack()
+            pop_up.mainloop()
+            return
+        if len(self.carte_d)==0:
+            self.carte_d.append(self.paquet2.get_carte_at(self.indice_d))
+            self.total_d=self.total_d+int(self.valeur_de_carte_d(self.carte_d[-1].valeur,
+                                                                 self.total_d))
+            self.indice_d = self.indice_d + 1
+            self.l_total_d["text"]=f"Total du Dealer: {self.total_d}"
+            self.add_image_d()
+            for i in range(2):
+                self.carte_j.append(self.paquet1.get_carte_at(self.indice_j))
+                self.total_j=self.total_j+int(self.valeur_de_carte_j(self.carte_j[-1].valeur))
+                self.indice_j=self.indice_j+1
+                self.l_total_j["text"]=f"Total: {self.total_j}"
+                self.add_image_j()
+                if self.total_j==21:
+                    return self.gagner()
             return
         self.carte_j.append(self.paquet1.get_carte_at(self.indice_j))
         self.total_j=self.total_j+int(self.valeur_de_carte_j(self.carte_j[-1].valeur))
@@ -325,9 +431,11 @@ class BlackJack:
         if self.total_d<22 and self.total_d>self.total_j:
             self.deactivate_button()
             self.perdre()
+
         elif self.total_d>21 or self.total_d<self.total_j:
             self.deactivate_button()
             self.gagner()
+
         else:
             self.deactivate_button()
             self.egaliter()
@@ -337,25 +445,26 @@ class BlackJack:
             return 10
         if card_value==1:
             self.deactivate_button()
-            warning_valeur=Entry(self.root)
+            warning_valeur=Entry(self.root,
+                                 font=self.min_font_norm)
             warning_valeur.grid(row=26,
-                    column=2)
+                                column=2)
             warning_valeur.focus_set()
             valeur=IntVar()
             answer_nb=Label(self.root,
                             text='',
-                            bg="#f0f0c8")
+                            bg="#f0f0c8",
+                            font=self.min_font_norm)
             answer_nb.grid(row=30,
                            column=2)
             def get_value(event=None):
-                if (not (int(warning_valeur.get())==10 or
-                          int(warning_valeur.get())==1 or
-                          int(warning_valeur.get())==11)):
-                    answer_nb.config(text="la valeur doit etre 1, 10, ou 11!")
+                if (not (warning_valeur.get()=='1' or
+                          warning_valeur.get()=='11')):
+                    answer_nb.config(text="la valeur doit etre 1, ou 11!")
                 else:
                     valeur.set(int(warning_valeur.get()))
             b_valeur=Button(self.root,
-                        text="Valeur de l'As (1, 10, 11): ",
+                        text="Valeur de l'As (1, 11): ",
                         command=get_value,
                         font=self.min_font,
                         relief=RAISED)
@@ -397,8 +506,7 @@ class BlackJack:
                              font=self.min_font,
                              relief=RAISED,
                              command=lambda: [pop_up.destroy(),
-                                              self.reinit(),
-                                              self.activate_button()])
+                                              self.reinit()])
         b_exit.pack()
         pop_up.mainloop()
 
@@ -418,10 +526,10 @@ class BlackJack:
                              font=self.min_font,
                              relief=RAISED,
                              command=lambda: [pop_up.destroy(),
-                                              self.reinit(),
-                                              self.activate_button()])
+                                              self.reinit()])
         b_exit.pack()
         pop_up.mainloop()
+
 
     def egaliter(self):
         self.keep=True
@@ -437,10 +545,10 @@ class BlackJack:
                              font=self.min_font,
                              relief=RAISED,
                              command=lambda: [pop_up.destroy(),
-                                              self.reinit(),
-                                              self.activate_button()])
+                                              self.reinit()])
         b_exit.pack()
         pop_up.mainloop()
+
 
     def set_username(self, event=None):
         self.deactivate_button()
@@ -452,7 +560,7 @@ class BlackJack:
                          text="Entrer votre username:")
         l_username.pack()
         e_username=Entry(t_username,
-                         font=self.min_font)
+                         font=self.min_font_norm)
         e_username.focus_set()
         e_username.pack()
         def init_username(event=None):
@@ -496,3 +604,24 @@ class BlackJack:
         self.root.unbind("<r>")
         self.root.unbind("<R>")
         self.root.unbind("<u>")
+
+    def put_bet(self, value):
+        self.bet=self.bet+value
+        self.l_mis_en_jeu['text']=f"Argent en jeu: ${self.bet}"
+        self.number_chip[value]=self.number_chip[value]+1
+        self.l_red_chip['text']=f'{self.number_chip[5]}'
+        self.l_yellow_chip['text']=f'{self.number_chip[25]}'
+        self.l_green_chip['text']=f'{self.number_chip[50]}'
+        self.l_blue_chip['text']=f'{self.number_chip[100]}'
+        self.l_purple_chip['text']=f'{self.number_chip[500]}'
+
+    def stop_bet(self):
+        for widgets in self.root.winfo_children():
+            if isinstance(widgets, Button):
+                if (widgets["text"]=="$1" or
+                    widgets["text"]=="$5" or
+                    widgets["text"]=="$25" or
+                    widgets["text"]=="$50" or
+                    widgets["text"]=="$100" or
+                    widgets["text"]=="$500"):
+                    widgets['state']='disabled'
