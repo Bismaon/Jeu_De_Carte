@@ -378,9 +378,6 @@ class BlackJack:
         if self.username=="":
             self.set_username()
             return
-        if self.bet!=0:
-            self.stop_bet()
-
         if self.bet == 0:
             pop_up=Toplevel(self.root)
             pop_up.geometry('300x100')
@@ -396,6 +393,7 @@ class BlackJack:
             pop_up.mainloop()
             return
         if len(self.carte_d)==0:
+            self.stop_bet()
             self.carte_d.append(self.paquet2.get_carte_at(self.indice_d))
             self.total_d=self.total_d+int(self.valeur_de_carte_d(self.carte_d[-1].valeur,
                                                                  self.total_d))
@@ -409,7 +407,7 @@ class BlackJack:
                 self.l_total_j["text"]=f"Total: {self.total_j}"
                 self.add_image_j()
                 if self.total_j==21:
-                    return self.gagner()
+                    self.gagner()
             return
         self.carte_j.append(self.paquet1.get_carte_at(self.indice_j))
         self.total_j=self.total_j+int(self.valeur_de_carte_j(self.carte_j[-1].valeur))
