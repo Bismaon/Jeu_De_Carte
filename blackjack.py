@@ -78,8 +78,8 @@ class BlackJack:
         self.monnaie = '0'
         self.rows = 0
         self.keep = False
-        self.carte_j:list[Carte] = []
-        self.carte_d:list[Carte] = []
+        self.carte_j = []
+        self.carte_d = []
         self.indice_j = 0
         self.indice_d = 0
         self.total_j = 0
