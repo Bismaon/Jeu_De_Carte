@@ -295,6 +295,8 @@ class BlackJack:
     def reglement(self, event=None):
         self.deactivate_button()
         pop_up=Toplevel(self.root)
+        pop_up.protocol("WM_DELETE_WINDOW",
+                        lambda:self.close_regle(pop_up))
         regle=Label(pop_up,
                     font='Arial 12',
                     justify='left',
@@ -311,7 +313,6 @@ class BlackJack:
                       command=lambda:[(pop_up.destroy(), self.activate_button())])
         b_exit.pack()
         pop_up.mainloop()
-        self.activate_button()
 
     def add_image_d(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -324,7 +325,6 @@ class BlackJack:
                       bg="#35654d")
         img_lab.image = img # keep a reference!
         img_lab.place(x=50+50*(len(self.carte_d)-1), y=50)
-
 
     def add_image_j(self):
         image = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -402,7 +402,7 @@ class BlackJack:
             self.indice_d = self.indice_d + 1
             self.l_total_d["text"]=f"Total du Dealer: {self.total_d}"
             self.add_image_d()
-            for i in range(2):
+            for _ in range(2):
                 self.carte_j.append(self.paquet1.get_carte_at(self.indice_j))
                 self.total_j=self.total_j+int(self.valeur_de_carte_j(self.carte_j[-1].valeur))
                 self.indice_j=self.indice_j+1
@@ -497,6 +497,8 @@ class BlackJack:
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
         pop_up.focus_set()
+        pop_up.protocol("WM_DELETE_WINDOW",
+                        lambda:self.on_close(pop_up))
         l_perdu=Label(pop_up,
                      font=self.min_font,
                      text=f"Vous avez perdu ${self.bet}!")
@@ -516,6 +518,8 @@ class BlackJack:
         self.keep=True
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
+        pop_up.protocol("WM_DELETE_WINDOW",
+                        lambda:self.on_close(pop_up))
         pop_up.focus_set()
         l_gagne=Label(pop_up,
                      font=self.min_font,
@@ -535,6 +539,8 @@ class BlackJack:
         self.keep=True
         pop_up=Toplevel(self.root)
         pop_up.geometry('250x100')
+        pop_up.protocol("WM_DELETE_WINDOW",
+                        lambda:self.on_close(pop_up))
         pop_up.focus_set()
         l_egalite=Label(pop_up,
                      font=self.min_font,
@@ -618,10 +624,18 @@ class BlackJack:
     def stop_bet(self):
         for widgets in self.root.winfo_children():
             if isinstance(widgets, Button):
-                if (widgets["text"]=="$1" or
-                    widgets["text"]=="$5" or
+                if (widgets["text"]=="$5" or
                     widgets["text"]=="$25" or
                     widgets["text"]=="$50" or
                     widgets["text"]=="$100" or
                     widgets["text"]=="$500"):
                     widgets['state']='disabled'
+
+    def on_close(self, window):
+        self.keep=True
+        self.reinit()
+        window.destroy()
+
+    def close_regle(self, window):
+        self.activate_button()
+        window.destroy()
